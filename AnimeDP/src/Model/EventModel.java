@@ -4,12 +4,7 @@
  */
 package Model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class Evento {
+public class EventModel {
     
     private String name;
     private String country;
@@ -24,7 +19,7 @@ public class Evento {
     private String ageRating;
     private String status;
     
-    public Evento(String name, String country, String city, String address, int maxPersonCapacity, 
+    public EventModel(String name, String country, String city, String address, int maxPersonCapacity, 
             int maxStoreCapacity, int maxRestaurantCapacity, String date, String time, String organizer,
             String ageRating, String status){
         this.name = name;
