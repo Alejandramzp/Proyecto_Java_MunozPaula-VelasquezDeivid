@@ -6,135 +6,143 @@ package Model;
 
 public class EventModel {
     
-    private String name;
-    private String country;
-    private String city;
-    private String address;
-    private int maxPersonCapacity;
-    private int maxStoreCapacity;
-    private int maxRestaurantCapacity;
-    private String date;
-    private String time;
-    private String organizer;
-    private String ageRating;
-    private String status;
-    
-    public EventModel(String name, String country, String city, String address, int maxPersonCapacity, 
-            int maxStoreCapacity, int maxRestaurantCapacity, String date, String time, String organizer,
-            String ageRating, String status){
-        this.name = name;
-        this.country = country;
-        this.city = city;
-        this.address = address;
-        this.maxPersonCapacity = maxPersonCapacity;
-        this.maxStoreCapacity = maxStoreCapacity;
-        this.maxRestaurantCapacity = maxRestaurantCapacity;
-        this.date = date;
-        this.time = time;
-        this.organizer = organizer;
-        this.ageRating = ageRating;
-        this.status = status;
+    private int EventID;
+    private String Name;
+    private String Country;
+    private String City;
+    private String Address;
+    private int MaxPersonCapacity;
+    private int MaxStoreCapacity;
+    private int MaxRestaurantCapacity;
+    private String Date;
+    private String Time;
+    private String Organizer;
+    private String AgeRating;
+    private String Status;
+
+    public EventModel(int EventID, String Name, String Country, String City, String Address, int MaxPersonCapacity, int MaxStoreCapacity, int MaxRestaurantCapacity, String Date, String Time, String Organizer, String AgeRating, String Status) {
+        this.EventID = EventID;
+        this.Name = Name;
+        this.Country = Country;
+        this.City = City;
+        this.Address = Address;
+        this.MaxPersonCapacity = MaxPersonCapacity;
+        this.MaxStoreCapacity = MaxStoreCapacity;
+        this.MaxRestaurantCapacity = MaxRestaurantCapacity;
+        this.Date = Date;
+        this.Time = Time;
+        this.Organizer = Organizer;
+        this.AgeRating = AgeRating;
+        this.Status = Status;
+    }
+
+    public int getEventID() {
+        return EventID;
+    }
+
+    public void setEventID(int EventID) {
+        this.EventID = EventID;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getCountry() {
-        return country;
+        return Country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCountry(String Country) {
+        this.Country = Country;
     }
 
     public String getCity() {
-        return city;
+        return City;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity(String City) {
+        this.City = City;
     }
 
     public String getAddress() {
-        return address;
+        return Address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 
     public int getMaxPersonCapacity() {
-        return maxPersonCapacity;
+        return MaxPersonCapacity;
     }
 
-    public void setMaxPersonCapacity(int maxPersonCapacity) {
-        this.maxPersonCapacity = maxPersonCapacity;
+    public void setMaxPersonCapacity(int MaxPersonCapacity) {
+        this.MaxPersonCapacity = MaxPersonCapacity;
     }
 
     public int getMaxStoreCapacity() {
-        return maxStoreCapacity;
+        return MaxStoreCapacity;
     }
 
-    public void setMaxStoreCapacity(int maxStoreCapacity) {
-        this.maxStoreCapacity = maxStoreCapacity;
+    public void setMaxStoreCapacity(int MaxStoreCapacity) {
+        this.MaxStoreCapacity = MaxStoreCapacity;
     }
 
     public int getMaxRestaurantCapacity() {
-        return maxRestaurantCapacity;
+        return MaxRestaurantCapacity;
     }
 
-    public void setMaxRestaurantCapacity(int maxRestaurantCapacity) {
-        this.maxRestaurantCapacity = maxRestaurantCapacity;
+    public void setMaxRestaurantCapacity(int MaxRestaurantCapacity) {
+        this.MaxRestaurantCapacity = MaxRestaurantCapacity;
     }
 
     public String getDate() {
-        return date;
+        return Date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(String Date) {
+        this.Date = Date;
     }
 
     public String getTime() {
-        return time;
+        return Time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(String Time) {
+        this.Time = Time;
     }
 
     public String getOrganizer() {
-        return organizer;
+        return Organizer;
     }
 
-    public void setOrganizer(String organizer) {
-        this.organizer = organizer;
+    public void setOrganizer(String Organizer) {
+        this.Organizer = Organizer;
     }
 
     public String getAgeRating() {
-        return ageRating;
+        return AgeRating;
     }
 
-    public void setAgeRating(String ageRating) {
-        this.ageRating = ageRating;
+    public void setAgeRating(String AgeRating) {
+        this.AgeRating = AgeRating;
     }
 
     public String getStatus() {
-        return status;
+        return Status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
     @Override
     public String toString() {
-        return "Evento{" + "name= " + name + ", country= " + country + ", city= " + city + ", address= " + address + ", maxPersonCapacity= " + maxPersonCapacity + ", maxStoreCapacity= " + maxStoreCapacity + ", maxRestaurantCapacity= " + maxRestaurantCapacity + ", date= " + date + ", time= " + time + ", organizer= " + organizer + ", ageRating= " + ageRating + ", status= " + status + '}';
+        return "EventModel{" + "EventID= " + EventID + ", Name= " + Name + ", Country= " + Country + ", City= " + City + ", Address= " + Address + ", MaxPersonCapacity= " + MaxPersonCapacity + ", MaxStoreCapacity= " + MaxStoreCapacity + ", MaxRestaurantCapacity= " + MaxRestaurantCapacity + ", Date= " + Date + ", Time= " + Time + ", Organizer= " + Organizer + ", AgeRating= " + AgeRating + ", Status= " + Status + '}';
     }
     
     

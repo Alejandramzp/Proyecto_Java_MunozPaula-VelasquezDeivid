@@ -1,4 +1,6 @@
--- Active: 1724592314746@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
+-- Active: 1724679236454@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
+create database bm8yuvtf6fnhrm8sbkew;
+
 use bm8yuvtf6fnhrm8sbkew;
 
 CREATE TABLE Event (
@@ -162,6 +164,7 @@ CREATE TABLE CosplayParticipant (
     Name VARCHAR(100),
     Score DECIMAL(5, 2),
     CosplayContestID INT,
+    FOREIGN KEY (ParticipationID) REFERENCES ActivityParticipation(ParticipationID),
     FOREIGN KEY (CosplayContestID) REFERENCES CosplayContest(CosplayContestID)
 );
 
@@ -184,6 +187,7 @@ CREATE TABLE TriviaParticipant (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
     Score DECIMAL(5, 2),
     TriviaContestID INT,
+    FOREIGN KEY (ParticipationID) REFERENCES ActivityParticipation(ParticipationID),
     FOREIGN KEY (TriviaContestID) REFERENCES TriviaContest(TriviaContestID)
 );
 

@@ -16,7 +16,7 @@ public class Conexion {
     private Connection con;
     public Connection establecerConexion() {
         Properties props = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("Config.properties")) {
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("Connection/Config.properties")) {
             if (input == null) {
                 throw new IllegalStateException("Archivo Config.properties no encontrado");
             }
@@ -33,7 +33,6 @@ public class Conexion {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexion creada");
         } catch (IOException | ClassNotFoundException | SQLException | IllegalStateException e) {
             System.err.println("Error en la conexión :(, error: " + e);
             JOptionPane.showMessageDialog(null, "Error en la conexión: " + e.toString());
