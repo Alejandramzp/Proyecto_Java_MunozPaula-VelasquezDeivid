@@ -17,11 +17,13 @@ import Connection.Conexion;
 
 
 public class EventDao {
+    private Conexion conexion = new Conexion();
+
     public void InsertEvent(EventModel event){
-        String sql = "INSERT INTO Event(Name, Country, City, Address, MaxPersonCapacity, MaxStoreCapacity, MaxRestaurantCapacity, Date, Time, Organizer, AgeRating, Status) VALUE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try(Connection conn = new Conexion().establecerConexion();
-                PreparedStatement stms = conn.prepareStatement(sql)){
-            
+        String sql = "INSERT INTO Event(Name, Country, City, Address, MaxPersonCapacity, MaxStoreCapacity, MaxRestaurantCapacity, Date, Time, Organizer, AgeRating, Status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = conexion.establecerConexion();
+             PreparedStatement stms = conn.prepareStatement(sql)) {
+
             stms.setString(1, event.getName());
             stms.setString(2, event.getCountry());
             stms.setString(3, event.getCity());
@@ -34,13 +36,13 @@ public class EventDao {
             stms.setString(10, event.getOrganizer());
             stms.setString(11, event.getAgeRating());
             stms.setString(12, event.getStatus());
-            
+
             stms.executeUpdate();
-                    
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     
     public EventModel ViewEventID(int id){
         String sql = "SELECT * FROM Event WHERE EventID = ?";
@@ -64,13 +66,37 @@ public class EventDao {
     
     public List<EventModel> ViewEvent(){
         List<EventModel> event = new ArrayList<>();
-        String sql = "SELECT * FROM Event";
-        try(Connection conn = new Conexion().establecerConexion();
-                PreparedStatement stms = conn.prepareStatement(sql)){
+        try(Connection conn = new Conexion().establecerConexion()){
+            String sql = "SELECT * FROM Event";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                int EventID = rs.getInt("EventID");
+                String Name = rs.getString("Name"); 
+                String Country = rs.getString("Country"); 
+                String City = rs.getString("City");
+                String Address = rs.getString("Address");
+                int MaxPersonCapacity = rs.getInt("MaxPersonCapacity");
+                int MaxStoreCapacity = rs.getInt("MaxStoreCapacity");
+                int MaxRestaurantCapacity = rs.getInt("MaxRestaurantCapacity");
+                String Date = rs.getString("Date");
+                String Time = rs.getString("Time"); 
+                String Organizer = rs.getString("Organizer");
+                String AgeRating = rs.getString("AgeRating"); 
+                String Status = rs.getString("Status");
+                
+                EventModel events = new EventModel(EventID, Name, Country, City, Address, 
+                        MaxPersonCapacity, MaxStoreCapacity, MaxRestaurantCapacity, Date,
+                        Time, Organizer, AgeRating, Status);
+                event.add(events);
+            }
+            
             
         }catch(SQLException e){
             e.printStackTrace();
         }
+        return event;
         
     }
 }

@@ -1,4 +1,4 @@
--- Active: 1724679236454@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
+-- Active: 1724709330624@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
 create database bm8yuvtf6fnhrm8sbkew;
 
 use bm8yuvtf6fnhrm8sbkew;
@@ -16,7 +16,7 @@ CREATE TABLE Event (
     Time TIME,
     Organizer VARCHAR(100),
     AgeRating VARCHAR(20),
-    Status ENUM('Active', 'Completed', 'Pending')
+    Status ENUM('Activo', 'Completado', 'Pendiente')
 );
 
 CREATE TABLE ActivityRole (
@@ -40,7 +40,7 @@ CREATE TABLE Staff (
     Identification VARCHAR(50),
     DateOfBirth DATE,
     RoleID INT,
-    Status ENUM('Task Assigned', 'No Task', 'Dismissed', 'Incapacitated'),
+    Status ENUM('Trabajo Asignado', 'No trabajando', 'Despedido', 'Incapacitado'),
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
     FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 );
@@ -49,7 +49,7 @@ CREATE TABLE Props (
     PropID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100),
     Quantity INT,
-    Status ENUM('In Storage', 'On Site'),
+    Status ENUM('En almacen', 'En sitio'),
     EventID INT,
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
 );
@@ -69,7 +69,7 @@ CREATE TABLE Visitor (
     TicketID INT,
     Name VARCHAR(100),
     IdentificationDocument VARCHAR(50),
-    Gender ENUM('Male', 'Female', 'Other'),
+    Gender ENUM('Hombre', 'Mujer', 'Otros'),
     DateOfBirth DATE,
     Email VARCHAR(100),
     PhoneNumber VARCHAR(15)
@@ -81,7 +81,7 @@ CREATE TABLE Ticket (
     Price DECIMAL(10, 2),
     AgeRating VARCHAR(20),
     AdditionalCost DECIMAL(10, 2),
-    Status ENUM('Paid', 'Reserved'),
+    Status ENUM('Pagado', 'Reservado'),
     VisitorID INT,
     TicketOfficeID INT,
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
@@ -92,7 +92,7 @@ CREATE TABLE Category (
     CategoryID INT AUTO_INCREMENT PRIMARY KEY,
     CategoryName VARCHAR(100),
     Age INT,
-    Gender ENUM('Male', 'Female', 'Other')
+    Gender ENUM('Hombre', 'Mujeres')
 );
 
 CREATE TABLE Activity (
@@ -113,7 +113,7 @@ CREATE TABLE ActivityParticipation (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
     VisitorID INT,
     ActivityID INT,
-    Status ENUM('Participates', 'Does Not Participate', 'Winner'),
+    Status ENUM('Participa', 'No Participa', 'Ganador'),
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
     FOREIGN KEY (ActivityID) REFERENCES Activity(ActivityID)
 );
@@ -133,7 +133,7 @@ CREATE TABLE EventAccounting (
 CREATE TABLE Business (
     BusinessID INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(100),
-    Type ENUM('Store', 'Restaurant'),
+    Type ENUM('Tienda', 'Restaurante'),
     InChargeID INT,
     FOREIGN KEY (InChargeID) REFERENCES Staff(StaffID)
 );
@@ -143,7 +143,7 @@ CREATE TABLE Prize (
     Type VARCHAR(50),
     Description VARCHAR(255),
     Value DECIMAL(10, 2),
-    Status ENUM('Available', 'Delivered'),
+    Status ENUM('Disponible', 'Entregado'),
     ActivityID INT,
     VisitorID INT,
     BusinessID INT,
@@ -180,7 +180,7 @@ CREATE TABLE TriviaQuestion (
     Question VARCHAR(255),
     CorrectAnswer VARCHAR(255),
     Category VARCHAR(100),
-    Difficulty ENUM('Easy', 'Intermediate', 'Difficult')
+    Difficulty ENUM('Facil', 'Intermedio', 'Dificil')
 );
 
 CREATE TABLE TriviaParticipant (
@@ -209,7 +209,7 @@ CREATE TABLE BusinessStaff (
 
 CREATE TABLE CashRegister (
     CashRegisterID INT AUTO_INCREMENT PRIMARY KEY,
-    Status ENUM('Active', 'Inactive'),
+    Status ENUM('Activo', 'Inactivo'),
     OpeningAmount DECIMAL(10, 2),
     ClosingAmount DECIMAL(10, 2),
     BusinessStaffID INT,
@@ -222,7 +222,7 @@ CREATE TABLE orderr (
     BusinessID INT,
     CashRegisterID INT,
     TotalValue DECIMAL(10, 2),
-    Status ENUM('Registered', 'Paid', 'Delivered'),
+    Status ENUM('Registrado', 'Pagado', 'Entregado'),
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
     FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID),
     FOREIGN KEY (CashRegisterID) REFERENCES CashRegister(CashRegisterID)
@@ -261,7 +261,7 @@ CREATE TABLE DiscountPromotion (
 CREATE TABLE Dish (
     DishID INT AUTO_INCREMENT PRIMARY KEY,
     Description VARCHAR(255),
-    Type ENUM('Appetizer', 'Drink', 'Main Course'),
+    Type ENUM('Entrada', 'Bebida', 'Plato Fuerte', 'Aperitivo'),
     PreparationTimeMinutes INT
 );
 
@@ -290,3 +290,4 @@ CREATE TABLE DishIngredient (
     FOREIGN KEY (IngredientID) REFERENCES IngredientInventory(IngredientInventoryID)
 );
 
+select * from `Event`;
