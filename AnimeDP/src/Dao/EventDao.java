@@ -98,50 +98,38 @@ public class EventDao {
     }
 
     public EventModel getEventById(int eventId) {
-        String sql = "SELECT * FROM Event WHERE EventID = ?";
-        Conexion conexion = new Conexion();
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        EventModel event = null;
+    String sql = "SELECT * FROM Event WHERE EventID = ?";
+    Conexion conexion = new Conexion();
+    Connection connection = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
-        try {
-            connection = conexion.establecerConexion();
-            stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, eventId);
-            rs = stmt.executeQuery();
+    try {
+        connection = conexion.establecerConexion();
+        stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, eventId);
+        rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                event = new EventModel(
-                        rs.getInt("EventID"),
-                        rs.getString("Name"),
-                        rs.getString("Country"),
-                        rs.getString("City"),
-                        rs.getString("Address"),
-                        rs.getInt("MaxPersonCapacity"),
-                        rs.getInt("MaxStoreCapacity"),
-                        rs.getInt("MaxRestaurantCapacity"),
-                        rs.getString("Date"),
-                        rs.getString("Time"),
-                        rs.getString("Organizer"),
-                        rs.getString("AgeRating")
-                );
-                event.setStatus(rs.getString("Status"));
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener evento por ID: " + e.getMessage());
-        } finally {
-            
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
+        if (rs.next()) {
+            EventModel event = new EventModel();
+            event.setId(rs.getInt("EventID"));
+            event.setName(rs.getString("Name"));
+            event.setDate(rs.getString("Date"));
+            event.setStatus(rs.getString("Status"));
+            return event;
         }
-
-        return event;
+    } catch (SQLException e) {
+        System.out.println("Error al obtener el evento por ID: " + e.getMessage());
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar la conexión: " + e.getMessage());
+        }
+    }
+        return null;
     }
 
     public boolean isEventNameExists(String name) {
@@ -164,7 +152,6 @@ public class EventDao {
         } catch (SQLException e) {
             System.out.println("Error al verificar si el nombre del evento existe: " + e.getMessage());
         } finally {
-
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
@@ -176,7 +163,6 @@ public class EventDao {
 
         return exists;
     }
-
 
     public boolean updateEventStatus(EventModel event) {
         String sql = "UPDATE Event SET Status = ? WHERE EventID = ?";
@@ -196,7 +182,6 @@ public class EventDao {
             System.out.println("Error al actualizar el estado del evento: " + e.getMessage());
             return false;
         } finally {
-
             try {
                 if (stmt != null) stmt.close();
                 if (connection != null) connection.close();
@@ -206,3 +191,4 @@ public class EventDao {
         }
     }
 }
+

@@ -4,146 +4,133 @@
  */
 package View;
 
+import Controller.EventController;
 import Model.EventModel;
-import Dao.EventDao;
 
 import java.util.Scanner;
 
 public class EventView {
-
+    private EventController eventController;
     private Scanner scanner;
-    private EventDao dao;
 
     public EventView() {
-        scanner = new Scanner(System.in);
-        dao = new EventDao();
-        showMenu();
+        this.eventController = new EventController();
+        this.scanner = new Scanner(System.in);
     }
 
-    private void showMenu() {
+    public void displayMenu() {
+        int option;
+        do {
+            System.out.println("\nGestión de Eventos:");
+            System.out.println("1. Añadir Evento");
+            System.out.println("2. Mostrar todos los Eventos");
+            System.out.println("3. Actualizar Estado de Eventos");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+            option = scanner.nextInt();
+            scanner.nextLine(); // Consume la nueva línea
+
+            switch (option) {
+                case 1 -> addEvent();
+                case 2 -> showAllEvents();
+                case 3 -> updateEventStatus();
+                case 4 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opción no válida, intente de nuevo.");
+            }
+        } while (option != 4);
+    }
+
+    private void addEvent() {
+        System.out.println("\nAñadir nuevo evento:");
+
+        String name = null;
+        String date = null;
+
+        // Validar nombre del evento
         while (true) {
-            System.out.println("\nEvent Management System");
-            System.out.println("1. Create Event");
-            System.out.println("2. View Event by ID");
-            System.out.println("3. Update Event Status");
-            System.out.println("4. Exit");
-            System.out.print("Choose an option: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice) {
-                case 1:
-                    createEvent();
-                    break;
-                case 2:
-                    viewEvent();
-                    break;
-                case 3:
-                    updateEventStatus();
-                    break;
-                case 4:
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+            try {
+                System.out.print("Nombre del evento: ");
+                name = scanner.nextLine();
+                eventController.isEventNameExists(name);
+                break; // Si no hay excepción, salir del bucle
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("Por favor, introduzca un nombre de evento diferente.");
             }
         }
-    }
 
-    private void createEvent() {
-        System.out.print("Enter event name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter country: ");
+        System.out.print("País: ");
         String country = scanner.nextLine();
-        System.out.print("Enter city: ");
+
+        System.out.print("Ciudad: ");
         String city = scanner.nextLine();
-        System.out.print("Enter address: ");
+
+        System.out.print("Dirección: ");
         String address = scanner.nextLine();
-        System.out.print("Enter max person capacity: ");
+
+        System.out.print("Capacidad máxima de personas: ");
         int maxPersonCapacity = scanner.nextInt();
-        System.out.print("Enter max store capacity: ");
+
+        System.out.print("Capacidad máxima de tiendas: ");
         int maxStoreCapacity = scanner.nextInt();
-        System.out.print("Enter max restaurant capacity: ");
+
+        System.out.print("Capacidad máxima de restaurantes: ");
         int maxRestaurantCapacity = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-        System.out.print("Enter date (YYYY-MM-DD): ");
-        String date = scanner.nextLine();
-        System.out.print("Enter time (HH:MM:SS): ");
-        String time = scanner.nextLine();
-        System.out.print("Enter organizer: ");
-        String organizer = scanner.nextLine();
-        System.out.print("Enter age rating: ");
-        String ageRating = scanner.nextLine();
-        System.out.print("Enter status (Pendiente, Activo, Completado): ");
-        String status = scanner.nextLine();
 
-        EventModel event = new EventModel(name, country, city, address, maxPersonCapacity, maxStoreCapacity, maxRestaurantCapacity, date, time, organizer, ageRating, status);
+        scanner.nextLine(); // Consume la nueva línea
 
-        if (dao.isEventNameExists(name)) {
-            System.out.println("Event with this name already exists.");
-            return;
-        }
-
-        boolean success = dao.addEvent(event);
-        if (success) {
-            System.out.println("Event created successfully.");
-        } else {
-            System.out.println("Failed to create event.");
-        }
-    }
-
-    private void viewEvent() {
-        System.out.print("Enter event ID: ");
-        int eventId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-
-        EventModel event = dao.getEventById(eventId);
-        if (event != null) {
-            System.out.println("Event ID: " + event.getId());
-            System.out.println("Name: " + event.getName());
-            System.out.println("Country: " + event.getCountry());
-            System.out.println("City: " + event.getCity());
-            System.out.println("Address: " + event.getAddress());
-            System.out.println("Max Person Capacity: " + event.getMaxPersonCapacity());
-            System.out.println("Max Store Capacity: " + event.getMaxStoreCapacity());
-            System.out.println("Max Restaurant Capacity: " + event.getMaxRestaurantCapacity());
-            System.out.println("Date: " + event.getDate());
-            System.out.println("Time: " + event.getTime());
-            System.out.println("Organizer: " + event.getOrganizer());
-            System.out.println("Age Rating: " + event.getAgeRating());
-            System.out.println("Status: " + event.getStatus());
-        } else {
-            System.out.println("Event not found.");
-        }
-    }
-
-    private void updateEventStatus() {
-        System.out.print("Enter event ID: ");
-        int eventId = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
-        System.out.print("Enter new status (Pendiente, Activo, Completado): ");
-        String status = scanner.nextLine();
-
-        EventModel event = dao.getEventById(eventId);
-        if (event != null) {
-            event.setStatus(status);
-            boolean success = dao.updateEventStatus(event);
-            if (success) {
-                System.out.println("Event status updated successfully.");
-            } else {
-                System.out.println("Failed to update event status.");
+        // Validar fecha del evento
+        while (true) {
+            try {
+                System.out.print("Fecha (yyyy-mm-dd): ");
+                date = scanner.nextLine();
+                eventController.isDateValid(date);
+                break; // Si no hay excepción, salir del bucle
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("Por favor, introduzca una fecha válida (al menos 7 días desde hoy).");
             }
-        } else {
-            System.out.println("Event not found.");
+        }
+
+        System.out.print("Hora (HH:MM): ");
+        String time = scanner.nextLine();
+
+        System.out.print("Organizador: ");
+        String organizer = scanner.nextLine();
+
+        System.out.print("Clasificación por edades: ");
+        String ageRating = scanner.nextLine();
+
+        EventModel event = new EventModel(0, name, country, city, address, maxPersonCapacity, maxStoreCapacity, maxRestaurantCapacity, date, time, organizer, ageRating);
+
+        try {
+            if (eventController.addEvent(event)) {
+                System.out.println("Evento añadido exitosamente.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void showAllEvents() {
+        System.out.println("\nListado de todos los eventos:");
+        eventController.getAllEvents().forEach(event -> System.out.println(
+                "ID: " + event.getId() +
+                ", Nombre: " + event.getName() +
+                ", Fecha: " + event.getDate() +
+                ", Estado: " + event.getStatus()));
+    }
+    
+    private void updateEventStatus() {
+        try {
+            eventController.updateEventStatus();
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al intentar actualizar el estado del evento: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
-        EventView eventView = new EventView();
-        
-        eventView.showMenu();
+        EventView view = new EventView();
+        view.displayMenu();
     }
 }
-

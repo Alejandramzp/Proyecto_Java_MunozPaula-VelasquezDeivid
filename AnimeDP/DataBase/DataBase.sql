@@ -1,4 +1,4 @@
--- Active: 1724679236454@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
+-- Active: 1724785416376@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306
 create database bm8yuvtf6fnhrm8sbkew;
 
 use bm8yuvtf6fnhrm8sbkew;
@@ -18,6 +18,8 @@ CREATE TABLE Event (
     AgeRating VARCHAR(20),
     Status ENUM('Activo', 'Completado', 'Pendiente')
 );
+
+select * from Event;
 
 CREATE TABLE ActivityRole (
     ActivityRoleID INT AUTO_INCREMENT PRIMARY KEY,
