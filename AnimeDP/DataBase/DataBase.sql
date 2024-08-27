@@ -19,8 +19,6 @@ CREATE TABLE Event (
     Status ENUM('Activo', 'Completado', 'Pendiente')
 );
 
-select * from Event;
-
 CREATE TABLE ActivityRole (
     ActivityRoleID INT AUTO_INCREMENT PRIMARY KEY,
     ActivityName VARCHAR(100)
