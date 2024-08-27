@@ -4,17 +4,14 @@
  */
 package Controller;
 
-// folder import
-import Model.EventModel;
 import Dao.EventDao;
+import Model.EventModel;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class EventController {
-
     private EventDao eventDao;
 
     public EventController() {
@@ -22,44 +19,32 @@ public class EventController {
     }
 
     public boolean addEvent(EventModel event) {
-        if (isEventNameExists(event.getName())) {
-            System.out.println("Error: El nombre ya está en uso.");
-            return false;
-        }
-        
-        // Validaciones de fecha
-        if (!isValidDate(event.getDate())) {
-            System.out.println("Error: Fecha inválida.");
-            return false;
-        }
-
-        eventDao.InsertEvent(event);
-        return true;
-    }
-
-    public boolean isEventNameExists(String name) {
-        List<EventModel> events = eventDao.ViewEvent();
-        for (EventModel event : events) {
-            if (event.getName().equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isValidDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate eventDate = LocalDate.parse(date, formatter);
-        LocalDate currentDate = LocalDate.now();
-        return !eventDate.isBefore(currentDate);
-    }
-
-    public EventModel getEventById(int id) {
-        return eventDao.ViewEventID(id);
+        return eventDao.addEvent(event);
     }
 
     public List<EventModel> getAllEvents() {
-        return eventDao.ViewEvent();
+        return eventDao.getAllEvents();
+    }
+
+    public boolean isEventNameExists(String name) {
+        return eventDao.isEventNameExists(name);
+    }
+
+    // Método para actualizar el estado del evento basado en la fecha actual
+    public void updateEventStatus() {
+        List<EventModel> events = getAllEvents();
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (EventModel event : events) {
+            LocalDate eventDate = LocalDate.parse(event.getDate(), formatter);
+
+            if (currentDate.equals(eventDate)) {
+                event.setStatus("Activo");
+            } else if (currentDate.isAfter(eventDate)) {
+                event.setStatus("Finalizado");
+            }
+            eventDao.updateEventStatus(event);
+        }
     }
 }
-

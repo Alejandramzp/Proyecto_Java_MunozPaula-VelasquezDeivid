@@ -5,145 +5,79 @@
 package Model;
 
 public class EventModel {
-    
-    private int EventID;
-    private String Name;
-    private String Country;
-    private String City;
-    private String Address;
-    private int MaxPersonCapacity;
-    private int MaxStoreCapacity;
-    private int MaxRestaurantCapacity;
-    private String Date;
-    private String Time;
-    private String Organizer;
-    private String AgeRating;
-    private String Status;
+    private int id;
+    private String name;
+    private String country;
+    private String city;
+    private String address;
+    private int maxPersonCapacity;
+    private int maxStoreCapacity;
+    private int maxRestaurantCapacity;
+    private String date;
+    private String time;
+    private String organizer;
+    private String ageRating;
+    private String status;
 
-    public EventModel(int EventID, String Name, String Country, String City, String Address, int MaxPersonCapacity, int MaxStoreCapacity, int MaxRestaurantCapacity, String Date, String Time, String Organizer, String AgeRating, String Status) {
-        this.EventID = EventID;
-        this.Name = Name;
-        this.Country = Country;
-        this.City = City;
-        this.Address = Address;
-        this.MaxPersonCapacity = MaxPersonCapacity;
-        this.MaxStoreCapacity = MaxStoreCapacity;
-        this.MaxRestaurantCapacity = MaxRestaurantCapacity;
-        this.Date = Date;
-        this.Time = Time;
-        this.Organizer = Organizer;
-        this.AgeRating = AgeRating;
-        this.Status = Status;
+    // Constructor
+    public EventModel(int id, String name, String country, String city, String address,
+                      int maxPersonCapacity, int maxStoreCapacity, int maxRestaurantCapacity,
+                      String date, String time, String organizer, String ageRating) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+        this.maxPersonCapacity = maxPersonCapacity;
+        this.maxStoreCapacity = maxStoreCapacity;
+        this.maxRestaurantCapacity = maxRestaurantCapacity;
+        this.date = date;
+        this.time = time;
+        this.organizer = organizer;
+        this.ageRating = ageRating;
+        this.status = "Pendiente"; // Estado inicial siempre "Pendiente"
     }
 
-    public int getEventID() {
-        return EventID;
+    public EventModel(String name, String country, String city, String address, int maxPersonCapacity, int maxStoreCapacity, int maxRestaurantCapacity, String date, String time, String organizer, String ageRating, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void setEventID(int EventID) {
-        this.EventID = EventID;
-    }
+    // Getters y Setters
 
-    public String getName() {
-        return Name;
-    }
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getCountry() { return country; }
+    public String getCity() { return city; }
+    public String getAddress() { return address; }
+    public int getMaxPersonCapacity() { return maxPersonCapacity; }
+    public int getMaxStoreCapacity() { return maxStoreCapacity; }
+    public int getMaxRestaurantCapacity() { return maxRestaurantCapacity; }
+    public String getDate() { return date; }
+    public String getTime() { return time; }
+    public String getOrganizer() { return organizer; }
+    public String getAgeRating() { return ageRating; }
+    public String getStatus() { return status; }
 
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-
-    public String getCountry() {
-        return Country;
-    }
-
-    public void setCountry(String Country) {
-        this.Country = Country;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public void setCity(String City) {
-        this.City = City;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String Address) {
-        this.Address = Address;
-    }
-
-    public int getMaxPersonCapacity() {
-        return MaxPersonCapacity;
-    }
-
-    public void setMaxPersonCapacity(int MaxPersonCapacity) {
-        this.MaxPersonCapacity = MaxPersonCapacity;
-    }
-
-    public int getMaxStoreCapacity() {
-        return MaxStoreCapacity;
-    }
-
-    public void setMaxStoreCapacity(int MaxStoreCapacity) {
-        this.MaxStoreCapacity = MaxStoreCapacity;
-    }
-
-    public int getMaxRestaurantCapacity() {
-        return MaxRestaurantCapacity;
-    }
-
-    public void setMaxRestaurantCapacity(int MaxRestaurantCapacity) {
-        this.MaxRestaurantCapacity = MaxRestaurantCapacity;
-    }
-
-    public String getDate() {
-        return Date;
-    }
-
-    public void setDate(String Date) {
-        this.Date = Date;
-    }
-
-    public String getTime() {
-        return Time;
-    }
-
-    public void setTime(String Time) {
-        this.Time = Time;
-    }
-
-    public String getOrganizer() {
-        return Organizer;
-    }
-
-    public void setOrganizer(String Organizer) {
-        this.Organizer = Organizer;
-    }
-
-    public String getAgeRating() {
-        return AgeRating;
-    }
-
-    public void setAgeRating(String AgeRating) {
-        this.AgeRating = AgeRating;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String Status) {
-        this.Status = Status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "EventModel{" + "EventID= " + EventID + ", Name= " + Name + ", Country= " + Country + ", City= " + City + ", Address= " + Address + ", MaxPersonCapacity= " + MaxPersonCapacity + ", MaxStoreCapacity= " + MaxStoreCapacity + ", MaxRestaurantCapacity= " + MaxRestaurantCapacity + ", Date= " + Date + ", Time= " + Time + ", Organizer= " + Organizer + ", AgeRating= " + AgeRating + ", Status= " + Status + '}';
+        return "Evento{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", maxPersonCapacity=" + maxPersonCapacity +
+                ", maxStoreCapacity=" + maxStoreCapacity +
+                ", maxRestaurantCapacity=" + maxRestaurantCapacity +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", organizer='" + organizer + '\'' +
+                ", ageRating='" + ageRating + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
-    
-    
 }

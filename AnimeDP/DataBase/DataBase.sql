@@ -1,4 +1,4 @@
--- Active: 1724709330624@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
+-- Active: 1724679236454@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306@bm8yuvtf6fnhrm8sbkew
 create database bm8yuvtf6fnhrm8sbkew;
 
 use bm8yuvtf6fnhrm8sbkew;
@@ -72,7 +72,8 @@ CREATE TABLE Visitor (
     Gender ENUM('Hombre', 'Mujer', 'Otros'),
     DateOfBirth DATE,
     Email VARCHAR(100),
-    PhoneNumber VARCHAR(15)
+    PhoneNumber VARCHAR(15),
+    Status ENUM('Participa', 'No Participa', 'Ganador')
 );
 
 CREATE TABLE Ticket (
@@ -113,7 +114,6 @@ CREATE TABLE ActivityParticipation (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
     VisitorID INT,
     ActivityID INT,
-    Status ENUM('Participa', 'No Participa', 'Ganador'),
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
     FOREIGN KEY (ActivityID) REFERENCES Activity(ActivityID)
 );
@@ -291,3 +291,80 @@ CREATE TABLE DishIngredient (
 );
 
 select * from `Event`;
+
+INSERT INTO Category (CategoryName, Age, Gender) VALUES
+('Naruto', 12, 'Hombre'),
+('SPYxFamily', 12, 'Mujeres'),
+('Jujutsu Kaisen', 12, 'Hombre'),
+('Harry Potter', 10, 'Hombre'),
+('Comics', 15, 'Hombre');
+
+INSERT INTO TriviaContest (Name, CategoryID) VALUES
+('Concurso Naruto', 1),
+('Concurso SPYxFamily', 2),
+('Concurso Jujutsu Kaisen', 3),
+('Concurso Harry Potter', 4),
+('Concurso Comics', 5);
+
+INSERT INTO TriviaQuestion (Question, CorrectAnswer, Category, Difficulty) VALUES
+-- Preguntas de Naruto
+('¿Quién es el sensei del Equipo 7?', 'Kakashi Hatake', 'Naruto', 'Facil'),
+('¿Qué significa el nombre Naruto?', 'Remolino', 'Naruto', 'Intermedio'),
+('¿Quién selló al Kyubi en Naruto?', 'Minato Namikaze', 'Naruto', 'Dificil'),
+('¿Cuál es el verdadero nombre de Itachi Uchiha?', 'Itachi', 'Naruto', 'Facil'),
+('¿Cuál es la técnica especial de Naruto?', 'Rasengan', 'Naruto', 'Intermedio'),
+('¿Quién es el hermano de Sasuke?', 'Itachi Uchiha', 'Naruto', 'Facil'),
+('¿Cuál es el poder ocular de Sasuke?', 'Sharingan', 'Naruto', 'Facil'),
+('¿Quién es el mejor amigo de Naruto?', 'Sasuke Uchiha', 'Naruto', 'Facil'),
+('¿Cómo se llama el sapo gigante que invoca Naruto?', 'Gamabunta', 'Naruto', 'Intermedio'),
+('¿Quién es el actual Hokage en la serie?', 'Naruto Uzumaki', 'Naruto', 'Facil'),
+
+-- Preguntas de SPYxFamily
+('¿Cómo se llama la hija adoptiva de Loid Forger?', 'Anya Forger', 'SPYxFamily', 'Facil'),
+('¿Qué poder especial tiene Anya Forger?', 'Telepatía', 'SPYxFamily', 'Intermedio'),
+('¿Cuál es la ocupación de Yor Forger?', 'Asesina', 'SPYxFamily', 'Dificil'),
+('¿Cómo se llama el perro de la familia Forger?', 'Bond', 'SPYxFamily', 'Facil'),
+('¿Cuál es la misión de Loid Forger?', 'Salvar al mundo', 'SPYxFamily', 'Facil'),
+('¿Qué alias tiene Yor Forger en su trabajo?', 'Thorn Princess', 'SPYxFamily', 'Intermedio'),
+('¿Cuál es el nombre en clave de Loid Forger?', 'Twilight', 'SPYxFamily', 'Intermedio'),
+('¿Dónde trabaja Yor Forger como cobertura?', 'Ayuntamiento', 'SPYxFamily', 'Facil'),
+('¿En qué institución educativa estudia Anya?', 'Eden Academy', 'SPYxFamily', 'Intermedio'),
+('¿Cuál es el sueño de Anya?', 'Ser una heroína', 'SPYxFamily', 'Facil'),
+
+-- Preguntas de Jujutsu Kaisen
+('¿Quién es el protagonista de Jujutsu Kaisen?', 'Yuji Itadori', 'Jujutsu Kaisen', 'Facil'),
+('¿Cuál es el poder maldito de Satoru Gojo?', 'Limitless', 'Jujutsu Kaisen', 'Intermedio'),
+('¿Cómo se llama el objeto maldito que Yuji ingiere?', 'Dedo de Sukuna', 'Jujutsu Kaisen', 'Facil'),
+('¿Quién es el villano principal de la serie?', 'Sukuna', 'Jujutsu Kaisen', 'Facil'),
+('¿Cuál es la escuela a la que asisten los personajes principales?', 'Escuela Técnica de Magia Metropolitana de Tokio', 'Jujutsu Kaisen', 'Intermedio'),
+('¿Cómo se llama el sensei de Yuji Itadori?', 'Satoru Gojo', 'Jujutsu Kaisen', 'Facil'),
+('¿Quién es el compañero de Yuji en su equipo?', 'Megumi Fushiguro', 'Jujutsu Kaisen', 'Facil'),
+('¿Cuál es la especialidad de Nobara Kugisaki?', 'Control de clavos', 'Jujutsu Kaisen', 'Intermedio'),
+('¿Qué le ocurre a Yuji después de ingerir el dedo de Sukuna?', 'Se convierte en su recipiente', 'Jujutsu Kaisen', 'Facil'),
+('¿Qué es una Técnica Inversa en Jujutsu Kaisen?', 'Una técnica de curación', 'Jujutsu Kaisen', 'Dificil'),
+
+-- Preguntas de Harry Potter
+('¿Cómo se llama el colegio de magia en Harry Potter?', 'Hogwarts', 'Harry Potter', 'Facil'),
+('¿Quién es el director de Hogwarts al inicio de la serie?', 'Albus Dumbledore', 'Harry Potter', 'Facil'),
+('¿Qué animal es la mascota de Harry Potter?', 'Búho', 'Harry Potter', 'Intermedio'),
+('¿Qué hechizo se utiliza para desarmar al oponente?', 'Expelliarmus', 'Harry Potter', 'Facil'),
+('¿Quién es el guardián de las llaves en Hogwarts?', 'Rubeus Hagrid', 'Harry Potter', 'Intermedio'),
+('¿Cuál es el nombre del elfo doméstico que ayuda a Harry?', 'Dobby', 'Harry Potter', 'Intermedio'),
+('¿Cómo se llama la profesora de transformaciones?', 'Minerva McGonagall', 'Harry Potter', 'Intermedio'),
+('¿Qué objeto debe atrapar un buscador en un partido de Quidditch?', 'Snitch dorada', 'Harry Potter', 'Facil'),
+('¿Quién es el autor de la serie Harry Potter?', 'J.K. Rowling', 'Harry Potter', 'Facil'),
+('¿Cómo se llama el villano principal de la serie?', 'Voldemort', 'Harry Potter', 'Facil'),
+
+-- Preguntas de Comics
+('¿Cómo se llama el alter ego de Batman?', 'Bruce Wayne', 'Comics', 'Facil'),
+('¿Qué superhéroe es conocido como el Hombre de Acero?', 'Superman', 'Comics', 'Facil'),
+('¿Cuál es el nombre real de Spider-Man?', 'Peter Parker', 'Comics', 'Facil'),
+('¿Qué heroína es conocida como la Princesa Amazona?', 'Wonder Woman', 'Comics', 'Facil'),
+('¿Quién es el archienemigo de Batman?', 'Joker', 'Comics', 'Facil'),
+('¿Qué grupo de superhéroes está formado por Hulk, Thor, Iron Man y Capitán América?', 'Los Vengadores', 'Comics', 'Intermedio'),
+('¿Quién es el rey de Wakanda en los cómics de Marvel?', 'T\'Challa', 'Comics', 'Intermedio'),
+('¿Qué villano tiene la habilidad de controlar el metal?', 'Magneto', 'Comics', 'Intermedio'),
+('¿Cuál es el nombre del martillo de Thor?', 'Mjolnir', 'Comics', 'Facil'),
+('¿Quién es conocido como el Mercenario Bocazas?', 'Deadpool', 'Comics', 'Facil');
+
+select * from `TriviaQuestion`;
