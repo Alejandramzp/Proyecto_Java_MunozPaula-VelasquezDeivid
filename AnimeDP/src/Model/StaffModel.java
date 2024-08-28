@@ -21,7 +21,7 @@ public class StaffModel {
         this.identification = identification;
         this.dateOfBirth = dateOfBirth;
         this.roleID = roleID;
-        this.status = status;
+        this.status = "No Trabajando";
     }
 
     public int getStaffID() { return staffID; }

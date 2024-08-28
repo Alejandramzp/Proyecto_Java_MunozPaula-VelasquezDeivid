@@ -1,63 +1,63 @@
--- Active: 1724785416376@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306
+-- Active: 1724865412630@@bm8yuvtf6fnhrm8sbkew-mysql.services.clever-cloud.com@3306
 create database bm8yuvtf6fnhrm8sbkew;
 
 use bm8yuvtf6fnhrm8sbkew;
 
 CREATE TABLE Event (
     EventID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100) UNIQUE,
-    Country VARCHAR(50),
-    City VARCHAR(50),
-    Address VARCHAR(100),
-    MaxPersonCapacity INT,
-    MaxStoreCapacity INT,
-    MaxRestaurantCapacity INT,
-    Date DATE,
-    Time TIME,
+    Name VARCHAR(100) UNIQUE NOT NULL,
+    Country VARCHAR(50) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    Address VARCHAR(100) NOT NULL,
+    MaxPersonCapacity INT NOT NULL,
+    MaxStoreCapacity INT NOT NULL,
+    MaxRestaurantCapacity INT NOT NULL,
+    Date DATE NOT NULL,
+    Time TIME NOT NULL,
     Organizer VARCHAR(100),
     AgeRating VARCHAR(20),
-    Status ENUM('Activo', 'Completado', 'Pendiente')
+    Status ENUM('Activo', 'Completado', 'Pendiente') NOT NULL
 );
 
 CREATE TABLE ActivityRole (
     ActivityRoleID INT AUTO_INCREMENT PRIMARY KEY,
-    ActivityName VARCHAR(100)
+    ActivityName VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Role (
     RoleID INT AUTO_INCREMENT PRIMARY KEY,
-    RoleName VARCHAR(100),
-    activity1ID INT,
-    activity2ID INT,
-    FOREIGN KEY (activity1ID) REFERENCES ActivityRole(ActivityRoleID),
-    FOREIGN KEY (activity2ID) REFERENCES ActivityRole(ActivityRoleID)
+    RoleName VARCHAR(100) NOT NULL,
+    Activity1ID INT,
+    Activity2ID INT,
+    FOREIGN KEY (Activity1ID) REFERENCES ActivityRole(ActivityRoleID),
+    FOREIGN KEY (Activity2ID) REFERENCES ActivityRole(ActivityRoleID)
 );
 
 CREATE TABLE Staff (
     StaffID INT AUTO_INCREMENT PRIMARY KEY,
-    EventID INT,
-    Name VARCHAR(100),
-    Identification VARCHAR(50),
-    DateOfBirth DATE,
-    RoleID INT,
-    Status ENUM('Trabajo Asignado', 'No trabajando', 'Despedido', 'Incapacitado'),
+    EventID INT NOT NULL,
+    Name VARCHAR(100) NOT NULL,
+    Identification VARCHAR(50) UNIQUE NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    RoleID INT NOT NULL,
+    Status ENUM('Trabajo Asignado', 'No trabajando', 'Despedido', 'Incapacitado') NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
     FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 );
 
 CREATE TABLE Props (
     PropID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    Quantity INT,
-    Status ENUM('En almacen', 'En sitio'),
-    EventID INT,
+    Name VARCHAR(100) NOT NULL,
+    Quantity INT NOT NULL,
+    Status ENUM('En almacen', 'En sitio') NOT NULL,
+    EventID INT NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID)
 );
 
 CREATE TABLE TicketOffice (
     TicketOfficeID INT AUTO_INCREMENT PRIMARY KEY,
-    EventID INT,
-    Location VARCHAR(100),
+    EventID INT NOT NULL,
+    Location VARCHAR(100) NOT NULL,
     ContactNumber VARCHAR(15),
     StaffInChargeID INT,
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
@@ -66,23 +66,22 @@ CREATE TABLE TicketOffice (
 
 CREATE TABLE Visitor (
     VisitorID INT AUTO_INCREMENT PRIMARY KEY,
-    TicketID INT,
-    Name VARCHAR(100),
-    IdentificationDocument VARCHAR(50),
-    Gender ENUM('Hombre', 'Mujer', 'Otros'),
-    DateOfBirth DATE,
+    Name VARCHAR(100) NOT NULL,
+    IdentificationDocument VARCHAR(50) UNIQUE NOT NULL,
+    Gender ENUM('Hombre', 'Mujer', 'Otros') NOT NULL,
+    DateOfBirth DATE NOT NULL,
     Email VARCHAR(100),
     PhoneNumber VARCHAR(15),
-    Status ENUM('Participa', 'No Participa', 'Ganador')
+    Status ENUM('Participa', 'No Participa', 'Ganador') NOT NULL
 );
 
 CREATE TABLE Ticket (
     TicketID INT AUTO_INCREMENT PRIMARY KEY,
-    TicketName VARCHAR(100),
-    Price DECIMAL(10, 2),
+    TicketName VARCHAR(100) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
     AgeRating VARCHAR(20),
     AdditionalCost DECIMAL(10, 2),
-    Status ENUM('Pagado', 'Reservado'),
+    Status ENUM('Pagado', 'Reservado') NOT NULL,
     VisitorID INT,
     TicketOfficeID INT,
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
@@ -91,9 +90,9 @@ CREATE TABLE Ticket (
 
 CREATE TABLE Category (
     CategoryID INT AUTO_INCREMENT PRIMARY KEY,
-    CategoryName VARCHAR(100),
-    Age INT,
-    Gender ENUM('Hombre', 'Mujeres')
+    CategoryName VARCHAR(100) NOT NULL,
+    Age INT NOT NULL,
+    Gender ENUM('Hombre', 'Mujeres', 'Otros') NOT NULL
 );
 
 CREATE TABLE Activity (
@@ -107,8 +106,10 @@ CREATE TABLE Activity (
     StaffID INT,
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID),
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
-    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
+    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
+    CONSTRAINT unique_activity_per_event UNIQUE (EventID, Name, StartTime)
 );
+
 
 CREATE TABLE ActivityParticipation (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
@@ -119,31 +120,30 @@ CREATE TABLE ActivityParticipation (
 );
 
 CREATE TABLE EventAccounting (
-    AccountingID INT AUTO_INCREMENT,
-    EventID INT,
-    ActivityID INT,
-    TicketsSold INT,
-    ActivityParticipation INT,
-    TotalAmount DECIMAL(10, 2),
-    PRIMARY KEY (AccountingID, EventID, ActivityID),
+    AccountingID INT AUTO_INCREMENT PRIMARY KEY,
+    EventID INT NOT NULL,
+    ActivityID INT NOT NULL,
+    TicketsSold INT NOT NULL,
+    ActivityParticipation INT NOT NULL,
+    TotalAmount DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (EventID) REFERENCES Event(EventID),
     FOREIGN KEY (ActivityID) REFERENCES Activity(ActivityID)
 );
 
 CREATE TABLE Business (
     BusinessID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    Type ENUM('Tienda', 'Restaurante'),
+    Name VARCHAR(100) NOT NULL,
+    Type ENUM('Tienda', 'Restaurante') NOT NULL,
     InChargeID INT,
     FOREIGN KEY (InChargeID) REFERENCES Staff(StaffID)
 );
 
 CREATE TABLE Prize (
     PrizeID INT AUTO_INCREMENT PRIMARY KEY,
-    Type VARCHAR(50),
+    Type VARCHAR(50) NOT NULL,
     Description VARCHAR(255),
     Value DECIMAL(10, 2),
-    Status ENUM('Disponible', 'Entregado'),
+    Status ENUM('Disponible', 'Entregado') NOT NULL,
     ActivityID INT,
     VisitorID INT,
     BusinessID INT,
@@ -154,54 +154,54 @@ CREATE TABLE Prize (
 
 CREATE TABLE CosplayContest (
     CosplayContestID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    CategoryID INT,
+    Name VARCHAR(100) NOT NULL,
+    CategoryID INT NOT NULL,
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
 );
 
 CREATE TABLE CosplayParticipant (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    Score DECIMAL(5, 2),
-    CosplayContestID INT,
+    Name VARCHAR(100) NOT NULL,
+    Score DECIMAL(5, 2) NOT NULL,
+    CosplayContestID INT NOT NULL,
     FOREIGN KEY (ParticipationID) REFERENCES ActivityParticipation(ParticipationID),
     FOREIGN KEY (CosplayContestID) REFERENCES CosplayContest(CosplayContestID)
 );
 
 CREATE TABLE TriviaContest (
     TriviaContestID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(100),
-    CategoryID INT,
+    Name VARCHAR(100) NOT NULL,
+    CategoryID INT NOT NULL,
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
 );
 
 CREATE TABLE TriviaQuestion (
     QuestionID INT AUTO_INCREMENT PRIMARY KEY,
-    Question VARCHAR(255),
-    CorrectAnswer VARCHAR(255),
-    Category VARCHAR(100),
-    Difficulty ENUM('Facil', 'Intermedio', 'Dificil')
+    Question VARCHAR(255) NOT NULL,
+    CorrectAnswer VARCHAR(255) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
+    Difficulty ENUM('Facil', 'Intermedio', 'Dificil') NOT NULL
 );
 
 CREATE TABLE TriviaParticipant (
     ParticipationID INT AUTO_INCREMENT PRIMARY KEY,
-    Score DECIMAL(5, 2),
-    TriviaContestID INT,
+    Score DECIMAL(5, 2) NOT NULL,
+    TriviaContestID INT NOT NULL,
     FOREIGN KEY (ParticipationID) REFERENCES ActivityParticipation(ParticipationID),
     FOREIGN KEY (TriviaContestID) REFERENCES TriviaContest(TriviaContestID)
 );
 
-CREATE TABLE Question_Participant (
-    QuestionID INT,
-    ParticipationID INT,
+CREATE TABLE QuestionParticipant (
+    QuestionID INT NOT NULL,
+    ParticipationID INT NOT NULL,
     PRIMARY KEY (QuestionID, ParticipationID),
     FOREIGN KEY (QuestionID) REFERENCES TriviaQuestion(QuestionID),
     FOREIGN KEY (ParticipationID) REFERENCES TriviaParticipant(ParticipationID)
 );
 
 CREATE TABLE BusinessStaff (
-    StaffID INT,
-    BusinessID INT,
+    StaffID INT NOT NULL,
+    BusinessID INT NOT NULL,
     PRIMARY KEY (StaffID, BusinessID),
     FOREIGN KEY (StaffID) REFERENCES Staff(StaffID),
     FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID)
@@ -209,20 +209,20 @@ CREATE TABLE BusinessStaff (
 
 CREATE TABLE CashRegister (
     CashRegisterID INT AUTO_INCREMENT PRIMARY KEY,
-    Status ENUM('Activo', 'Inactivo'),
-    OpeningAmount DECIMAL(10, 2),
+    Status ENUM('Activo', 'Inactivo') NOT NULL,
+    OpeningAmount DECIMAL(10, 2) NOT NULL,
     ClosingAmount DECIMAL(10, 2),
-    BusinessStaffID INT,
+    BusinessStaffID INT NOT NULL,
     FOREIGN KEY (BusinessStaffID) REFERENCES BusinessStaff(StaffID)
 );
 
-CREATE TABLE orderr (
+CREATE TABLE Orderr (
     OrderID INT AUTO_INCREMENT PRIMARY KEY,
-    VisitorID INT,
-    BusinessID INT,
-    CashRegisterID INT,
-    TotalValue DECIMAL(10, 2),
-    Status ENUM('Registrado', 'Pagado', 'Entregado'),
+    VisitorID INT NOT NULL,
+    BusinessID INT NOT NULL,
+    CashRegisterID INT NOT NULL,
+    TotalValue DECIMAL(10, 2) NOT NULL,
+    Status ENUM('Registrado', 'Pagado', 'Entregado') NOT NULL,
     FOREIGN KEY (VisitorID) REFERENCES Visitor(VisitorID),
     FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID),
     FOREIGN KEY (CashRegisterID) REFERENCES CashRegister(CashRegisterID)
@@ -230,65 +230,76 @@ CREATE TABLE orderr (
 
 CREATE TABLE OrderItem (
     OrderItemID INT AUTO_INCREMENT PRIMARY KEY,
-    OrderID INT,
-    ItemName VARCHAR(100),
-    Quantity INT,
-    IndividualValue DECIMAL(10, 2),
-    FOREIGN KEY (OrderID) REFERENCES orderr(OrderID)
+    OrderID INT NOT NULL,
+    ItemName VARCHAR(100) NOT NULL,
+    Quantity INT NOT NULL,
+    IndividualValue DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (OrderID) REFERENCES Orderr(OrderID)
 );
 
 CREATE TABLE StoreInventory (
     InventoryID INT AUTO_INCREMENT PRIMARY KEY,
-    BusinessID INT,
-    ProductName VARCHAR(100),
+    BusinessID INT NOT NULL,
+    ProductName VARCHAR(100) NOT NULL,
     Description VARCHAR(255),
     Manufacturer VARCHAR(100),
     Type VARCHAR(50),
-    AvailableQuantity INT,
-    IndividualPrice DECIMAL(10, 2),
+    AvailableQuantity INT NOT NULL,
+    IndividualPrice DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID)
 );
 
 CREATE TABLE DiscountPromotion (
     DiscountID INT AUTO_INCREMENT PRIMARY KEY,
-    InventoryID INT,
+    InventoryID INT NOT NULL,
     Description VARCHAR(255),
     Type VARCHAR(50),
-    DiscountValue DECIMAL(10, 2),
+    DiscountValue DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (InventoryID) REFERENCES StoreInventory(InventoryID)
 );
 
 CREATE TABLE Dish (
     DishID INT AUTO_INCREMENT PRIMARY KEY,
-    Description VARCHAR(255),
-    Type ENUM('Entrada', 'Bebida', 'Plato Fuerte', 'Aperitivo'),
-    PreparationTimeMinutes INT
+    Description VARCHAR(255) NOT NULL,
+    Type ENUM('Entrada', 'Bebida', 'Plato Fuerte', 'Aperitivo') NOT NULL,
+    PreparationTimeMinutes INT NOT NULL
 );
 
 CREATE TABLE RestaurantMenu (
-    BusinessID INT,
-    DishID INT,
+    BusinessID INT NOT NULL,
+    DishID INT NOT NULL,
+    AvailableQuantity INT NOT NULL,
     PRIMARY KEY (BusinessID, DishID),
     FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID),
     FOREIGN KEY (DishID) REFERENCES Dish(DishID)
 );
 
-CREATE TABLE IngredientInventory (
-    IngredientInventoryID INT AUTO_INCREMENT PRIMARY KEY,
-    BusinessID INT,
-    IngredientName VARCHAR(100),
-    AvailableQuantity DECIMAL(10, 2),
-    FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID)
+CREATE TABLE Ingredient (
+    IngredientID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Description VARCHAR(255),
+    Supplier VARCHAR(100)
 );
 
 CREATE TABLE DishIngredient (
-    DishID INT,
-    IngredientID INT,
-    IngredientQuantity DECIMAL(10, 2),
+    DishID INT NOT NULL,
+    IngredientID INT NOT NULL,
+    RequiredQuantity DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (DishID, IngredientID),
     FOREIGN KEY (DishID) REFERENCES Dish(DishID),
-    FOREIGN KEY (IngredientID) REFERENCES IngredientInventory(IngredientInventoryID)
+    FOREIGN KEY (IngredientID) REFERENCES Ingredient(IngredientID)
 );
+
+CREATE TABLE IngredientInventory (
+    IngredientInventoryID INT AUTO_INCREMENT PRIMARY KEY,
+    BusinessID INT NOT NULL,
+    IngredientID INT NOT NULL,
+    AvailableQuantity DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (BusinessID) REFERENCES Business(BusinessID),
+    FOREIGN KEY (IngredientID) REFERENCES Ingredient(IngredientID)
+);
+
+
 
 select * from `Event`;
 

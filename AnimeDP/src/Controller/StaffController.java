@@ -21,25 +21,19 @@ public class StaffController {
     private String getStatusFromCode(int code) {
         switch (code) {
             case 1:
-                return "Trabajo Asignado";
+                
             case 2:
-                return "No trabajando";
-            case 3:
                 return "Despedido";
-            case 4:
+            case 3:
                 return "Incapacitado";
             default:
-                return null; // Retorna null si el código no es válido
+                return null;
         }
     }
 
-    // Método para agregar un nuevo miembro de personal con validación de estado
-    public boolean addStaff(int eventID, String name, String identification, LocalDate dateOfBirth, int roleID, int statusCode) {
-        String status = getStatusFromCode(statusCode);
-        if (status == null) {
-            System.out.println("Error: Código de estado no válido.");
-            return false;
-        }
+    
+    public boolean addStaff(int eventID, String name, String identification, LocalDate dateOfBirth, int roleID, String statusCode) {
+        String status = "No Trabajando";
 
         StaffModel newStaff = new StaffModel(eventID, name, identification, dateOfBirth, roleID, status);
         return staffDao.addStaff(newStaff);

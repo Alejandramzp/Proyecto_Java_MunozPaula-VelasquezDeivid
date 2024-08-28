@@ -86,14 +86,7 @@ public class StaffView {
         int roleID = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
 
-        System.out.println("Selecciona el estado:");
-        System.out.println("1. Trabajo Asignado");
-        System.out.println("2. No trabajando");
-        System.out.println("3. Despedido");
-        System.out.println("4. Incapacitado");
-        System.out.print("Opción de estado: ");
-        int statusCode = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
+        String statusCode = "No Trabajando";
 
         boolean result = staffController.addStaff(eventID, name, identification, dateOfBirth, roleID, statusCode);
         if (result) {
