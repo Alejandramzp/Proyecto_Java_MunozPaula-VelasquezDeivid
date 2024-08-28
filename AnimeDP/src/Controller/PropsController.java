@@ -3,6 +3,7 @@ package Controller;
 
 import Dao.PropsDao;
 import Model.PropsModel;
+import java.util.List;
 
 
 public class PropsController {
@@ -17,7 +18,11 @@ public class PropsController {
         return propsDao.addProps(props);
     }
     
-    
+    public boolean isEventExists(int id) {
+        return propsDao.isEventExists(id);
+    }
   
-    
+   public List<PropsModel> getAllProps(){
+       return propsDao.getAllProps();
+   }
 }
