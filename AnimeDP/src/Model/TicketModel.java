@@ -5,6 +5,7 @@
 package Model;
 
 public class TicketModel {
+    private int TicketID;
     private String TicketName;
     private double Price;
     private String AgeRating;
@@ -13,7 +14,8 @@ public class TicketModel {
     private int VisitorID;
     private int TicketOfficeID;
 
-    public TicketModel(String TicketName, double Price, String AgeRating, double AdditionalCost, String Status, int VisitorID, int TicketOfficeID) {
+    public TicketModel(int TicketID, String TicketName, double Price, String AgeRating, double AdditionalCost, String Status, int VisitorID, int TicketOfficeID) {
+        this.TicketID = TicketID;
         this.TicketName = TicketName;
         this.Price = Price;
         this.AgeRating = AgeRating;
@@ -21,6 +23,14 @@ public class TicketModel {
         this.Status = Status;
         this.VisitorID = VisitorID;
         this.TicketOfficeID = TicketOfficeID;
+    }
+
+    public int getTicketID() {
+        return TicketID;
+    }
+
+    public void setTicketID(int TicketID) {
+        this.TicketID = TicketID;
     }
 
     public String getTicketName() {
