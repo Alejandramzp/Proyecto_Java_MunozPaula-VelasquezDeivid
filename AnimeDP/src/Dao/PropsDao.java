@@ -3,6 +3,7 @@ package Dao;
 
 import Model.PropsModel;
 import Connection.Conexion;
+import Model.EventModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -109,5 +110,69 @@ public class PropsDao {
         }
 
         return props;   
+    }
+    
+    public PropsModel getPropsById(int propsId) {
+    String sql = "SELECT * FROM Props WHERE PropID = ?";
+    Conexion conexion = new Conexion();
+    Connection connection = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        connection = conexion.establecerConexion();
+        stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, propsId);
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            PropsModel props = new PropsModel();
+            
+            props.setId(rs.getInt("PropID"));
+            props.setName(rs.getString("Name"));
+            props.setQuantity(rs.getInt("Quantity"));
+            props.setStatus(rs.getString("Status"));
+            props.setEventId(rs.getInt("EventID"));
+            return props;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener la utilería por ID: " + e.getMessage());
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar la conexión: " + e.getMessage());
+        }
+    }
+        return null;
+    }
+    
+    public boolean updatePropsStatus(PropsModel props){
+        String sql = "UPDATE Props SET Status = ? WHERE PropID = ?";
+        Conexion conexion = new Conexion();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            connection = conexion.establecerConexion();
+            stmt = connection.prepareStatement(sql);
+            stmt.setString(1, props.getStatus());
+            stmt.setInt(2,props.getId());
+            
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0; 
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el estado de la utilería: " + e.getMessage());
+            return false;
+        }finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
     }
 }
