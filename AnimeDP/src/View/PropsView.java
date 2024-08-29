@@ -24,7 +24,7 @@ public class PropsView {
             System.out.println("'                                       '");
             System.out.println("'    1. Añadir Utilería                 '");
             System.out.println("'    2. Mostrar todas las Utilerías     '");
-            System.out.println("'    3. Mostrar todas las Utilerías     '");
+            System.out.println("'    3. Mostrar las Utilerías por ID    '");
             System.out.println("'    4. Actualizar Estado de Utilería   '");
             System.out.println("'    5. Actualizar Cantidad de Utilería '");
             System.out.println("'    6. Eliminar Utilería               '");
@@ -40,7 +40,7 @@ public class PropsView {
                 case 3 -> showPropsById();
                 case 4 -> updatePropsStatus();
                 case 5 -> updatePropsQuantity();
-                case 6 -> System.out.println("eliminar");
+                case 6 -> deletePropsById();
                 case 7 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción no válida, intente de nuevo.");
             }
@@ -75,7 +75,7 @@ public class PropsView {
         System.out.println("Nombre: ");
         String name = scanner.nextLine();
         
-        System.out.println("Cantidad");
+        System.out.println("Cantidad: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
         
@@ -84,7 +84,7 @@ public class PropsView {
         System.out.println("                                           ");
         System.out.println("    1. En el sitio                         ");
         System.out.println("    2. En el almacen                       ");
-        System.out.print("      Seleccione una opción:                 ");
+        System.out.println("      Seleccione una opción:                 ");
         System.out.println("-------------------------------------------");
         
         int optionS;
@@ -134,8 +134,6 @@ public class PropsView {
     }
     
     private void showPropsById(){
-        System.out.println("\n----------------------------------------");
-
         int propsId;
 
         // Validar el ID de la utilería
@@ -148,6 +146,7 @@ public class PropsView {
                 PropsModel props = propsController.getPropsById(propsId);
                 
                 if(props != null){
+                    System.out.println("\n----------------------------------------");
                     System.out.println("Detalles de la utilería:");
                     System.out.println("ID: " + props.getId());
                     System.out.println("Nombre: " + props.getName());
@@ -179,6 +178,14 @@ public class PropsView {
             propsController.updatePropsQuantity();
         } catch (Exception e) {
             System.out.println("Se produjo un error al intentar actualizar el estado de la utilería: " + e.getMessage());
+        }
+    }
+    
+    public void deletePropsById() {
+        try {
+            propsController.deletePropsById();
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al intentar eliminar la utilería: " + e.getMessage());
         }
     }
     
