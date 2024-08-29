@@ -11,75 +11,82 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CategoryView {
+
     private CategoryController categoryController;
     private Scanner scanner;
 
     public CategoryView() {
-        categoryController = new CategoryController();
-        scanner = new Scanner(System.in);
+        this.categoryController = new CategoryController();
+        this.scanner = new Scanner(System.in);
     }
 
-    public void displayMenu() {
-        int option;
+    public void showMenu() {
+        while (true) {
+            System.out.println("1. Agregar Categoría");
+            System.out.println("2. Eliminar Categoría");
+            System.out.println("3. Listar Categorías");
+            System.out.println("4. Salir");
+            System.out.print("Seleccione una opción: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
 
-        do {
-            System.out.println("=== Menú de Categorías ===");
-            System.out.println("1. Agregar categoría");
-            System.out.println("2. Mostrar todas las categorías");
-            System.out.println("3. Salir");
-            System.out.print("Selecciona una opción: ");
-            option = scanner.nextInt();
-            scanner.nextLine(); 
-
-            switch (option) {
+            switch (choice) {
                 case 1:
                     addCategory();
                     break;
                 case 2:
-                    showAllCategories();
+                    deleteCategory();
                     break;
                 case 3:
+                    listCategories();
+                    break;
+                case 4:
                     System.out.println("Saliendo...");
-                    break;
+                    return;
                 default:
-                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
-                    break;
+                    System.out.println("Opción no válida. Inténtelo de nuevo.");
             }
-        } while (option != 3);
+        }
     }
 
     private void addCategory() {
-        System.out.print("Ingresa el nombre de la categoría: ");
-        String categoryName = scanner.nextLine();
-        
-        System.out.print("Ingresa la edad: ");
+        System.out.print("Ingrese el nombre de la categoría: ");
+        String name = scanner.nextLine();
+        System.out.print("Ingrese la edad: ");
         int age = scanner.nextInt();
-        scanner.nextLine(); // Limpiar el buffer
-        
-        System.out.print("Ingresa el género(Hombre / Mujer): ");
+        scanner.nextLine(); // Consumir el salto de línea
+        System.out.print("Ingrese el género (Hombre/Mujer/Otros): ");
         String gender = scanner.nextLine();
-        
-        int categoryID = 0; 
 
-        boolean isAdded = categoryController.addCategory(categoryID, categoryName, age, gender);
-        if (isAdded) {
+        boolean success = categoryController.addCategory(name, age, gender);
+        if (success) {
             System.out.println("Categoría agregada exitosamente.");
         } else {
-            System.out.println("Hubo un error al agregar la categoría.");
+            System.out.println("Error al agregar la categoría.");
         }
     }
 
-    private void showAllCategories() {
-        List<CategoryModel> categories = categoryController.getAllCategories();
-        System.out.println("=== Lista de Categorías ===");
-        for (CategoryModel category : categories) {
-            System.out.println("ID: " + category.getCategoryID() + ", Nombre: " + category.getCategoryName() +
-                    ", Edad: " + category.getAge() + ", Género: " + category.getGender());
+    private void deleteCategory() {
+        System.out.print("Ingrese el ID de la categoría a eliminar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
+        boolean success = categoryController.deleteCategory(id);
+        if (success) {
+            System.out.println("Categoría eliminada exitosamente.");
+        } else {
+            System.out.println("Error al eliminar la categoría.");
         }
     }
-    public static void main(String[] args) {
-        CategoryView categoryView = new CategoryView();
-        categoryView.displayMenu();
+
+    private void listCategories() {
+        List<CategoryModel> categories = categoryController.listCategories();
+        if (categories.isEmpty()) {
+            System.out.println("No hay categorías disponibles.");
+        } else {
+            for (CategoryModel category : categories) {
+                System.out.println(category);
+            }
+        }
     }
 }
-
