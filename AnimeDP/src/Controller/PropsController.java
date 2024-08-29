@@ -40,7 +40,7 @@ public class PropsController {
         
         PropsModel props = propsDao.getPropsById(propsId);
         if (props == null) {
-            System.out.println("Evento con ID " + propsId + " no encontrado.");
+            System.out.println("Utilería con ID " + propsId + " no encontrado.");
             return;
         }
         
@@ -84,7 +84,38 @@ public class PropsController {
         }else {
             System.out.println("Error al actualizar el estado de la utilería . Por favor, intente de nuevo.");
         }
+  
+   }
+   
+   public void updatePropsQuantity(){
+       
+       System.out.print("Ingrese el ID de la utilería a actualizar: ");
+        int propsId = scanner.nextInt();
+        scanner.nextLine(); 
         
+        PropsModel props = propsDao.getPropsById(propsId);
+        if (props == null) {
+            System.out.println("Evento con ID " + propsId + " no encontrado.");
+            return;
+        }
+        
+        System.out.println("\n-----------------------------------------");
+        System.out.println(" Cantidad actual de la utilería: " + props.getQuantity());
+        System.out.println("-----------------------------------------");
+        
+        System.out.println("\n-----------------------------------------");
+        System.out.println("   Ingrese la nueva cantidad de utilería:  ");
+        System.out.println("-------------------------------------------");
+        
+        int newQuantity;
+        newQuantity = scanner.nextInt();
+        
+        props.setQuantity(newQuantity);
+        if(propsDao.updatePropsQuantity(props)){
+            System.out.println("La cantidad de la utilería actualizada exitosamente a " + newQuantity + ".");
+        }else {
+            System.out.println("Error al actualizar ela cantidad de la utilería . Por favor, intente de nuevo.");
+        }
         
    }
 }

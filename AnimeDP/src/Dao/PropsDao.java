@@ -175,4 +175,31 @@ public class PropsDao {
             }
         }
     }
+    
+    public boolean updatePropsQuantity(PropsModel props){
+        String sql = "UPDATE Props SET Quantity = ? WHERE PropID = ?";
+        Conexion conexion = new Conexion();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            connection = conexion.establecerConexion();
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, props.getQuantity());
+            stmt.setInt(2,props.getId());
+            
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0; 
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el estado de la utilería: " + e.getMessage());
+            return false;
+        }finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
 }

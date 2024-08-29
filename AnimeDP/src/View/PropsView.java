@@ -39,7 +39,7 @@ public class PropsView {
                 case 2 -> showAllProps();
                 case 3 -> showPropsById();
                 case 4 -> updatePropsStatus();
-                case 5 -> System.out.println("Actualizar");
+                case 5 -> updatePropsQuantity();
                 case 6 -> System.out.println("eliminar");
                 case 7 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción no válida, intente de nuevo.");
@@ -169,6 +169,14 @@ public class PropsView {
     private void updatePropsStatus() {
         try {
             propsController.updatePropsStatus();
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al intentar actualizar el estado de la utilería: " + e.getMessage());
+        }
+    }
+    
+    private void updatePropsQuantity() {
+        try {
+            propsController.updatePropsQuantity();
         } catch (Exception e) {
             System.out.println("Se produjo un error al intentar actualizar el estado de la utilería: " + e.getMessage());
         }
