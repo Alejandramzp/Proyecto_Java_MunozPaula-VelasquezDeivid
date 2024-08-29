@@ -3,7 +3,6 @@ package Dao;
 
 import Model.PropsModel;
 import Connection.Conexion;
-import Model.EventModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -194,6 +193,32 @@ public class PropsDao {
             System.out.println("Error al actualizar el estado de la utilería: " + e.getMessage());
             return false;
         }finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+    
+    public boolean deletePropsById(int propsId) {
+        String sql = "DELETE FROM Props WHERE PropID = ?";
+        Conexion conexion = new Conexion();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+
+        try {
+            connection = conexion.establecerConexion();
+            stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, propsId);
+
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar la utilería: " + e.getMessage());
+            return false;
+        } finally {
             try {
                 if (stmt != null) stmt.close();
                 if (connection != null) connection.close();
