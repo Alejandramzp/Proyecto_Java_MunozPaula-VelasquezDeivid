@@ -29,5 +29,31 @@ public class CashRegisterController {
        return cashRegisterDao.getCashRegisterById(cashRegisterID);
     }
     
-    
+    public boolean updateCashRegister(CashRegisterModel cashRegister) {
+        return cashRegisterDao.updateCashRegister(cashRegister);
+    }
+
+    public boolean activateCashRegister(int cashRegisterID, double openingAmount, int businessStaffID) {
+        CashRegisterModel cashRegister = getCashRegisterById(cashRegisterID);
+
+        if (cashRegister != null && "Inactivo".equals(cashRegister.getStatus())) {
+            cashRegister.setOpeningAmount(openingAmount);
+            cashRegister.setBusinessStaffID(businessStaffID);
+            cashRegister.setStatus("Activo");
+            return updateCashRegister(cashRegister);
+        }
+        return false;
+    }
+
+    public boolean desactivateCashRegister(int cashRegisterID, double closingAmount) {
+        CashRegisterModel cashRegister = getCashRegisterById(cashRegisterID);
+
+        if (cashRegister != null && "Activo".equals(cashRegister.getStatus())) {
+            cashRegister.setClosingAmount(closingAmount);
+            cashRegister.setBusinessStaffID(0);  // Desasigna el personal
+            cashRegister.setStatus("Inactivo");
+            return updateCashRegister(cashRegister);
+        }
+        return false;
+    }
 }

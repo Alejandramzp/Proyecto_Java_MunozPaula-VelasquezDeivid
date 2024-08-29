@@ -155,7 +155,7 @@ public class PropsView {
                     System.out.println("ID del Evento: " + props.getEventId());
                     break; // Si no hay excepción, salir del bucle
                 }else{
-                    System.out.println("El evento no se encuentra registrado");
+                    System.out.println("La utilería no se encuentra registrada");
                 } 
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
