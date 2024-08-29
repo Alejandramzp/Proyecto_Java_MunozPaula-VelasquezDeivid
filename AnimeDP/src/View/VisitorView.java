@@ -10,9 +10,15 @@ import java.util.Scanner;
 
 public class VisitorView {
 
-    public static void main(String[] args) {
-        VisitorController visitorController = new VisitorController();
-        Scanner scanner = new Scanner(System.in);
+    private VisitorController visitorController;
+    private Scanner scanner;
+
+    public VisitorView() {
+        this.visitorController = new VisitorController();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void showVisitorMenu() {
         int option;
 
         do {
@@ -31,7 +37,7 @@ public class VisitorView {
                     visitorController.listVisitors();
                     break;
                 case 3:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del menú de visitantes...");
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtelo de nuevo.");
@@ -39,8 +45,12 @@ public class VisitorView {
             }
 
         } while (option != 3);
+    }
 
-        scanner.close();
+    // Método main separado para pruebas o ejecución directa
+    public static void main(String[] args) {
+        VisitorView visitorView = new VisitorView();
+        visitorView.showVisitorMenu();
     }
 }
 

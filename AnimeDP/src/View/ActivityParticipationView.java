@@ -10,9 +10,15 @@ import java.util.Scanner;
 
 public class ActivityParticipationView {
 
-    public static void main(String[] args) {
-        ActivityParticipationController participationController = new ActivityParticipationController();
-        Scanner scanner = new Scanner(System.in);
+    private ActivityParticipationController participationController;
+    private Scanner scanner;
+
+    public ActivityParticipationView() {
+        this.participationController = new ActivityParticipationController();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void showParticipationMenu() {
         int option;
 
         do {
@@ -27,7 +33,7 @@ public class ActivityParticipationView {
                     participationController.addParticipation();
                     break;
                 case 2:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del menú de participación...");
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtelo de nuevo.");
@@ -35,8 +41,13 @@ public class ActivityParticipationView {
             }
 
         } while (option != 2);
+    }
 
-        scanner.close();
+    // Método main separado para pruebas o ejecución directa
+    public static void main(String[] args) {
+        ActivityParticipationView participationView = new ActivityParticipationView();
+        participationView.showParticipationMenu();
     }
 }
+
 

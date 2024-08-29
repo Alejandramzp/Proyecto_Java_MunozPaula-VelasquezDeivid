@@ -9,9 +9,15 @@ import java.util.Scanner;
 
 public class EventAccountingView {
 
-    public static void main(String[] args) {
-        EventAccountingController accountingController = new EventAccountingController();
-        Scanner scanner = new Scanner(System.in);
+    private EventAccountingController accountingController;
+    private Scanner scanner;
+
+    public EventAccountingView() {
+        this.accountingController = new EventAccountingController();
+        this.scanner = new Scanner(System.in);
+    }
+
+    public void showAccountingMenu() {
         int option;
 
         do {
@@ -44,7 +50,7 @@ public class EventAccountingView {
                     accountingController.generateParticipantsByActivityReport(activityID); 
                     break;
                 case 5:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del menú de contabilidad...");
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtelo de nuevo.");
@@ -52,9 +58,14 @@ public class EventAccountingView {
             }
 
         } while (option != 5);
+    }
 
-        scanner.close();
+    // Método main separado para pruebas o ejecución directa
+    public static void main(String[] args) {
+        EventAccountingView accountingView = new EventAccountingView();
+        accountingView.showAccountingMenu();
     }
 }
+
 
 
