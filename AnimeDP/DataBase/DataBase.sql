@@ -301,7 +301,7 @@ CREATE TABLE IngredientInventory (
 
 
 
-select * from `Event`;
+select * from TriviaQuestion;
 
 INSERT INTO Category (CategoryName, Age, Gender) VALUES
 ('Naruto', 12, 'Hombre'),
