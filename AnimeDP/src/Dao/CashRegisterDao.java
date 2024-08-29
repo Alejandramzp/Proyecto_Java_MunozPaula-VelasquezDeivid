@@ -11,7 +11,7 @@ import java.util.List;
 public class CashRegisterDao {
     
     public boolean addCashRegister(CashRegisterModel CashRegister){
-        String sql = "INSERT INTO CashRegister (CashRegisterID, Status, OpeningAmount, ClosingAmount,BusinessStaffID) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CashRegister (Status, OpeningAmount, ClosingAmount,BusinessStaffID) VALUES (?, ?, ?, ?)";
         Conexion conexion = new Conexion();
         Connection connection = null;
         PreparedStatement stmt = null;
@@ -147,4 +147,36 @@ public class CashRegisterDao {
     }
         return null;
     }
+    
+    public boolean updateCashRegister(CashRegisterModel cashRegister) {
+    String sql = "UPDATE CashRegister SET Status = ?, OpeningAmount = ?, ClosingAmount = ?, BusinessStaffID = ? WHERE CashRegisterID = ?";
+    Conexion conexion = new Conexion();
+    Connection connection = null;
+    PreparedStatement stmt = null;
+
+    try {
+        connection = conexion.establecerConexion();
+        stmt = connection.prepareStatement(sql);
+
+        stmt.setString(1, cashRegister.getStatus());
+        stmt.setDouble(2, cashRegister.getOpeningAmount());
+        stmt.setDouble(3, cashRegister.getClosingAmount());
+        stmt.setInt(4, cashRegister.getBusinessStaffID());
+        stmt.setInt(5, cashRegister.getCashRegisterID());
+
+        int rowsUpdated = stmt.executeUpdate();
+        return rowsUpdated > 0;
+    } catch (SQLException e) {
+        System.out.println("Error al actualizar la caja: " + e.getMessage());
+        return false;
+      } finally {
+        try {
+            if (stmt != null) stmt.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar la conexión: " + e.getMessage());
+            }
+        }
+    }
+
 }

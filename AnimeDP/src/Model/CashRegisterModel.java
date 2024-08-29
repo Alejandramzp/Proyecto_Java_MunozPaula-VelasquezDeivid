@@ -10,13 +10,13 @@ public class CashRegisterModel {
     private int businessStaffID;
 
     public CashRegisterModel() {
+        this.status = "Inactivo";
     }
 
     public CashRegisterModel(int cashRegisterID, double openingAmount, int businessStaffID) {
         this.cashRegisterID = cashRegisterID;
         this.status = "Inactivo";
         this.openingAmount = openingAmount;
-        this.closingAmount = 0;
         this.businessStaffID = businessStaffID;
     }
     
