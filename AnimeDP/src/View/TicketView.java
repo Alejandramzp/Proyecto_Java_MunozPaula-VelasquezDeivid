@@ -10,9 +10,17 @@ import java.util.Scanner;
 
 public class TicketView {
 
-    public static void main(String[] args) {
-        TicketController ticketController = new TicketController();
-        Scanner scanner = new Scanner(System.in);
+    private TicketController ticketController;
+    private Scanner scanner;
+
+    // Constructor para inicializar el controlador y el escáner
+    public TicketView() {
+        this.ticketController = new TicketController();
+        this.scanner = new Scanner(System.in);
+    }
+
+    // Método para mostrar el menú de gestión de tickets
+    public void showTicketMenu() {
         int option;
 
         do {
@@ -31,7 +39,7 @@ public class TicketView {
                     ticketController.listTickets();
                     break;
                 case 3:
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del menú de gestión de tickets...");
                     break;
                 default:
                     System.out.println("Opción no válida. Inténtelo de nuevo.");
@@ -39,8 +47,12 @@ public class TicketView {
             }
 
         } while (option != 3);
+    }
 
-        scanner.close();
+    // Método main para pruebas o ejecución directa
+    public static void main(String[] args) {
+        TicketView ticketView = new TicketView();
+        ticketView.showTicketMenu();
     }
 }
 
