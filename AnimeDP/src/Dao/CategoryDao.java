@@ -4,76 +4,91 @@
  */
 package Dao;
 
-import Connection.Conexion;
 import Model.CategoryModel;
+import Connection.Conexion;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDao {
-    public boolean addCategory(CategoryModel category){
-        String sql = "INSERT INTO Category(CategoryName, Age, Gender) VALUES(?, ?, ?)";
+
+    private Connection connection;
+
+    public CategoryDao() {
         Conexion conexion = new Conexion();
-        Connection connection = null;
-        PreparedStatement stmt = null;
-        
-        try{
-            connection = conexion.establecerConexion();
-            stmt = connection.prepareStatement(sql);
-            stmt.setString(1, category.getCategoryName());
-            stmt.setInt(2, category.getAge());
-            stmt.setString(3, category.getGender());
-            
-            int rowInserted = stmt.executeUpdate();
-            return rowInserted > 0;
-        } catch (SQLException e){
-            System.out.println("Error al insertar categoria: " + e.getMessage());
+        this.connection = conexion.establecerConexion();
+    }
+
+    // Insertar una nueva categoría
+    public boolean addCategory(CategoryModel category) {
+        String sql = "INSERT INTO Category (CategoryName, Age, Gender) VALUES (?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, category.getCategoryName());
+            statement.setInt(2, category.getAge());
+            statement.setString(3, category.getGender());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al agregar la categoría: " + e.getMessage());
             return false;
-        }finally{
-            try{
-                if(stmt != null) stmt.close();
-                if(connection != null) connection.close();
-            } catch (SQLException e){
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
         }
     }
-    
-    public List<CategoryModel> getAllCategory(){
-        List<CategoryModel> categorys = new ArrayList<>();
-        String sql = "SELECT * FROM Category";
-        Conexion conexion = new Conexion();
-        Connection connection = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        
-        try {
-            connection = conexion.establecerConexion();
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(sql);
 
-            while (rs.next()) {
-                CategoryModel category = new CategoryModel(
-                        rs.getInt("CategoryID"),
-                        rs.getString("CategoryName"),
-                        rs.getInt("Age"),
-                        rs.getString("Gender")
-                );
-                categorys.add(category);
+    // Eliminar una categoría
+    public boolean deleteCategory(int categoryID) {
+        String sql = "DELETE FROM Category WHERE CategoryID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, categoryID);
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar la categoría: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Obtener una categoría por ID
+    public CategoryModel getCategoryById(int categoryID) {
+        String sql = "SELECT * FROM Category WHERE CategoryID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, categoryID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new CategoryModel(
+                        resultSet.getInt("CategoryID"),
+                        resultSet.getString("CategoryName"),
+                        resultSet.getInt("Age"),
+                        resultSet.getString("Gender")
+                    );
+                }
+            }   
+        } catch (SQLException e) {
+            System.out.println("Error al obtener la categoría: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // Listar todas las categorías
+    public List<CategoryModel> listCategories() {
+        List<CategoryModel> categories = new ArrayList<>();
+        String sql = "SELECT * FROM Category";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
+                categories.add(new CategoryModel(
+                    resultSet.getInt("CategoryID"),
+                    resultSet.getString("CategoryName"),
+                    resultSet.getInt("Age"),
+                    resultSet.getString("Gender")
+                ));
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener Categorias: " + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
+            System.out.println("Error al listar las categorías: " + e.getMessage());
         }
+        return categories;
+    }
 
-        return categorys;
+    public boolean isCategoryExist(int categoryID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
+

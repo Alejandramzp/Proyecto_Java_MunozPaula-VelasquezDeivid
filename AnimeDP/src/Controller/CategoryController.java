@@ -10,19 +10,28 @@ import Model.CategoryModel;
 import java.util.List;
 
 public class CategoryController {
+
     private CategoryDao categoryDao;
 
     public CategoryController() {
-        categoryDao = new CategoryDao();
+        this.categoryDao = new CategoryDao();
     }
 
-    public boolean addCategory(int categoryID, String categoryName, int age, String gender) {
-        CategoryModel category = new CategoryModel(categoryID, categoryName, age, gender);
+    public boolean addCategory(String name, int age, String gender) {
+        CategoryModel category = new CategoryModel(0, name, age, gender);
         return categoryDao.addCategory(category);
     }
 
-    public List<CategoryModel> getAllCategories() {
-        return categoryDao.getAllCategory();
+    public boolean deleteCategory(int categoryID) {
+        return categoryDao.deleteCategory(categoryID);
+    }
+
+    public CategoryModel getCategoryById(int categoryID) {
+        return categoryDao.getCategoryById(categoryID);
+    }
+
+    public List<CategoryModel> listCategories() {
+        return categoryDao.listCategories();
     }
 }
 

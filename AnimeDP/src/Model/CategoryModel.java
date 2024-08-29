@@ -5,48 +5,55 @@
 package Model;
 
 public class CategoryModel {
-    private int CategoryID;
-    private String CategoryName;
-    private int Age;
-    private String Gender;
+    private int categoryID;
+    private String categoryName;
+    private int age;
+    private String gender; // 'Hombre', 'Mujer', 'Otros'
 
-    public CategoryModel(int CategoryID, String CategoryName, int Age, String Gender) {
-        this.CategoryID = CategoryID;
-        this.CategoryName = CategoryName;
-        this.Age = Age;
-        this.Gender = Gender;
+    // Constructor
+    public CategoryModel(int categoryID, String categoryName, int age, String gender) {
+        this.categoryID = categoryID;
+        this.categoryName = categoryName;
+        this.age = age;
+        this.gender = gender;
     }
 
+    // Getters y Setters
     public int getCategoryID() {
-        return CategoryID;
+        return categoryID;
     }
 
-    public void setCategoryID(int CategoryID) {
-        this.CategoryID = CategoryID;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
-    
+
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
-    public void setCategoryName(String CategoryName) {
-        this.CategoryName = CategoryName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
-    public void setAge(int Age) {
-        this.Age = Age;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
-    public void setGender(String Gender) {
-        this.Gender = Gender;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryID: " + categoryID + ", Name: " + categoryName + ", Age: " + age + ", Gender: " + gender;
+    }
 }
+
