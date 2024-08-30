@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.StaffController;
@@ -29,13 +26,16 @@ public class StaffView {
     public void displayMenu() {
         int option;
         do {
-            System.out.println("\n--- Menú de Gestión de Personal ---");
-            System.out.println("1. Agregar nuevo miembro de personal");
-            System.out.println("2. Ver todos los miembros del personal");
-            System.out.println("3. Ver detalles de la relación entre Actividad, Rol y Personal");
-            System.out.println("4. Agregar nuevo Rol");
-            System.out.println("5. Agregar nueva Relación Actividad-Rol");
-            System.out.println("0. Salir");
+            System.out.println("-------------------------------------------------------------------");
+            System.out.println("'                  Menú de Gestión de Personal                    '");
+            System.out.println("'                                                                 '");
+            System.out.println("'  1. Agregar nuevo miembro de personal                           '");
+            System.out.println("'  2. Ver todos los miembros del personal                         '");
+            System.out.println("'  3. Ver detalles de la relación entre Actividad, Rol y Personal '");
+            System.out.println("'  4. Agregar nuevo Rol                                           '");
+            System.out.println("'  5. Agregar nueva Relación Actividad-Rol                        '");
+            System.out.println("'  0. Salir                                                       '");
+            System.out.println("-------------------------------------------------------------------");
             System.out.print("Selecciona una opción: ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea

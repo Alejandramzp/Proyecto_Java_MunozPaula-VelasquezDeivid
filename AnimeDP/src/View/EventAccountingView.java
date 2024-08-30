@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.EventAccountingController;
@@ -21,12 +18,15 @@ public class EventAccountingView {
         int option;
 
         do {
-            System.out.println("\nMenú de Gestión de Contabilidad de Eventos");
-            System.out.println("1. Mostrar total de boletos vendidos");
-            System.out.println("2. Mostrar monto total recaudado por categoría");
-            System.out.println("3. Mostrar boletos disponibles para un evento");
-            System.out.println("4. Mostrar participantes por actividad");
-            System.out.println("5. Salir");
+            System.out.println("---------------------------------------------------");
+            System.out.println("'     Menú de Gestión de Contabilidad de Eventos  '");
+            System.out.println("'                                                 '");
+            System.out.println("' 1. Mostrar total de boletos vendidos            '");
+            System.out.println("' 2. Mostrar monto total recaudado por categoría  '");
+            System.out.println("' 3. Mostrar boletos disponibles para un evento   '");
+            System.out.println("' 4. Mostrar participantes por actividad          '");
+            System.out.println("' 5. Salir                                        '");
+            System.out.println("---------------------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
 

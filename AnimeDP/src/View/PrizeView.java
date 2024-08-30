@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.PrizeController;
@@ -22,12 +19,14 @@ public class PrizeView {
         boolean running = true;
 
         while (running) {
-            System.out.println("=== Menú de Gestión de Premios ===");
-            System.out.println("1. Agregar Premio");
-            System.out.println("2. Entregar Premio");
-            System.out.println("3. Eliminar Premio");
-            System.out.println("4. Listar Premios por Estado");
-            System.out.println("5. Salir");
+            System.out.println("-----------------------------------------");
+            System.out.println("'       Menú de Gestión de Premios      '");
+            System.out.println("'    1. Agregar Premio                  '");
+            System.out.println("'    2. Entregar Premio                 '");
+            System.out.println("'    3. Eliminar Premio                 '");
+            System.out.println("'    4. Listar Premios por Estado       '");
+            System.out.println("'    5. Salir                           '");
+            System.out.println("-----------------------------------------");
             System.out.print("Seleccione una opción: ");
 
             int choice = scanner.nextInt();

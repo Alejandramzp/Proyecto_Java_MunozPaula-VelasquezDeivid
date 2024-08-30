@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.CategoryController;
@@ -22,10 +19,13 @@ public class CategoryView {
 
     public void showMenu() {
         while (true) {
-            System.out.println("1. Agregar Categoría");
-            System.out.println("2. Eliminar Categoría");
-            System.out.println("3. Listar Categorías");
-            System.out.println("4. Salir");
+            System.out.println("\n-----------------------------------------");
+            System.out.println("'                 Categoría               '");
+            System.out.println("'         1. Agregar Categoría            '");
+            System.out.println("'         2. Eliminar Categoría           '");
+            System.out.println("'         3. Listar Categorías            '");
+            System.out.println("'         4. Salir                        '");
+            System.out.println("-------------------------------------------");
             System.out.print("Seleccione una opción: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea

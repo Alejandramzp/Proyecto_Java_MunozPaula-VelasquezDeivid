@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.TicketController;
@@ -24,10 +21,12 @@ public class TicketView {
         int option;
 
         do {
-            System.out.println("Menú de Gestión de Tickets");
-            System.out.println("1. Crear nuevo ticket");
-            System.out.println("2. Listar todos los tickets");
-            System.out.println("3. Salir");
+            System.out.println("-----------------------------------------");
+            System.out.println("'      Menú de Gestión de Tickets       '");
+            System.out.println("'  1. Crear nuevo ticket                '");
+            System.out.println("'  2. Listar todos los tickets          '");
+            System.out.println("'  3. Salir                             '");
+            System.out.println("-----------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
 

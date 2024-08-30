@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Dao.CosplayParticipantDao;
@@ -54,7 +51,7 @@ public class CosplayParticipantView {
             if (rs != null) {
                 System.out.println("El primer lugar es:");
                 while (rs.next()) {
-                    System.out.println("Nombre: " + rs.getString("Name") +
+                    System.out.println(" -> Nombre: " + rs.getString("Name") +
                             ", Puntaje: " + rs.getDouble("Score"));
                 }
             } else {
@@ -67,10 +64,13 @@ public class CosplayParticipantView {
     
     public void showMenu() {
         while (true) {
-            System.out.println("=== Menú de Participantes de Cosplay ===");
-            System.out.println("1. Agregar participante de cosplay");
-            System.out.println("2. Mostrar el 1 primer lugar");
-            System.out.println("3. Salir");
+            System.out.println("-------------------------------------------");
+            System.out.println("'     Menú de Participantes de Cosplay    '");
+            System.out.println("'                                         '");
+            System.out.println("'  1. Agregar participante de cosplay     '");
+            System.out.println("'  2. Mostrar el 1 primer lugar           '");
+            System.out.println("'  3. Salir                               '");
+            System.out.println("-------------------------------------------");
             System.out.print("Seleccione una opción: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); 

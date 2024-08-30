@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.EventController;
@@ -21,11 +18,14 @@ public class EventView {
     public void displayMenu() {
         int option;
         do {
-            System.out.println("\nGestión de Eventos:");
-            System.out.println("1. Añadir Evento");
-            System.out.println("2. Mostrar todos los Eventos");
-            System.out.println("3. Actualizar Estado de Eventos");
-            System.out.println("4. Salir");
+            System.out.println("-----------------------------------------");
+            System.out.println("'           Gestión de Eventos:         '");
+            System.out.println("'                                       '");
+            System.out.println("'      1. Añadir Evento                 '");
+            System.out.println("'      2. Mostrar todos los Eventos     '");
+            System.out.println("'      3. Actualizar Estado de Eventos  '");
+            System.out.println("'      4. Salir                         '");
+            System.out.println("-----------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consume la nueva línea
@@ -41,7 +41,9 @@ public class EventView {
     }
 
     private void addEvent() {
-        System.out.println("\nAñadir nuevo evento:");
+        System.out.println("\n-----------------------------------------");
+        System.out.println("            Añadir nuevo evento:");
+        System.out.println("-----------------------------------------");
 
         String name = null;
         String date = null;
@@ -113,12 +115,15 @@ public class EventView {
     }
 
     private void showAllEvents() {
-        System.out.println("\nListado de todos los eventos:");
+        System.out.println("\n-----------------------------------------");
+        System.out.println("       Listado de todos los eventos:      ");
+        System.out.println("-----------------------------------------");
         eventController.getAllEvents().forEach(event -> System.out.println(
                 "ID: " + event.getId() +
                 ", Nombre: " + event.getName() +
                 ", Fecha: " + event.getDate() +
                 ", Estado: " + event.getStatus()));
+        System.out.println("-----------------------------------------");
     }
     
     private void updateEventStatus() {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.TicketOfficeController;
@@ -22,9 +19,11 @@ public class TicketOfficeView {
         int option;
 
         do {
-            System.out.println("=== Gestión de Taquillas ===");
-            System.out.println("1. Agregar nueva taquilla");
-            System.out.println("2. Salir");
+            System.out.println("-----------------------------------------");
+            System.out.println("'          Gestión de Taquillas         '");
+            System.out.println("'    1. Agregar nueva taquilla          '");
+            System.out.println("'    2. Salir                           '");
+            System.out.println("-----------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consumir nueva línea
@@ -46,8 +45,9 @@ public class TicketOfficeView {
 
     private void addTicketOffice() {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("=== Agregar Nueva Taquilla ===");
+        System.out.println("-----------------------------------------");
+        System.out.println("           Agregar Nueva Taquilla        ");
+        System.out.println("-----------------------------------------");
 
         System.out.print("Ingrese el ID del evento: ");
         int eventID = scanner.nextInt();

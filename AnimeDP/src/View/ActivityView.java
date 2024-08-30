@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.ActivityController;
@@ -22,11 +19,14 @@ public class ActivityView {
     public void displayMenu() {
         int option;
         do {
-            System.out.println("\n=== Menú de Actividades ===");
-            System.out.println("1. Agregar actividad");
-            System.out.println("2. Mostrar todas las actividades");
-            System.out.println("3. Salir");
+            System.out.println("-----------------------------------------");
+            System.out.println("'           Menú de Actividades         '");
+            System.out.println("'     1. Agregar actividad              '");
+            System.out.println("'     2. Mostrar todas las actividades  '");
+            System.out.println("'     3. Salir                          '");
+            System.out.println("-----------------------------------------");
             System.out.print("Selecciona una opción: ");
+            
             option = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea
 
@@ -77,7 +77,8 @@ public class ActivityView {
         if (activities.isEmpty()) {
             System.out.println("No hay actividades disponibles.");
         } else {
-            System.out.println("\n=== Lista de Actividades ===");
+            System.out.println("\n-----------------------------------------");
+            System.out.println("             Lista de Actividades          ");
             for (ActivityModel activity : activities) {
                 System.out.println("ID: " + activity.getActivityID() +
                                    ", Nombre: " + activity.getName() +
@@ -88,6 +89,7 @@ public class ActivityView {
                                    ", Hora de Inicio: " + activity.getStartTime() +
                                    ", Personal ID: " + activity.getStaffID());
             }
+            System.out.println("-----------------------------------------");
         }
     }
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Dao.CosplayContestDao;
@@ -49,9 +46,12 @@ public class CosplayContestView {
 
     public void showMenu() {
         while (true) {
-            System.out.println("1. Agregar concurso de cosplay");
-            System.out.println("2. Listar todos los concursos de cosplay");
-            System.out.println("3. Salir");
+            System.out.println("\n-----------------------------------------");
+            System.out.println("                   Cosplay                 ");
+            System.out.println("   1. Agregar concurso de cosplay          ");
+            System.out.println("   2. Listar todos los concursos de cosplay");
+            System.out.println("   3. Salir                                ");
+            System.out.println("-------------------------------------------");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); 

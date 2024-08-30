@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package View;
 
 import Controller.ActivityParticipationController;
@@ -22,9 +19,11 @@ public class ActivityParticipationView {
         int option;
 
         do {
-            System.out.println("Menú de Gestión de Participación en Actividades");
-            System.out.println("1. Añadir participación");
-            System.out.println("2. Salir");
+            System.out.println("---------------------------------------------------");
+            System.out.println("' Menú de Gestión de Participación en Actividades '");
+            System.out.println("'            1. Añadir participación              '");
+            System.out.println("'            2. Salir                             '");
+            System.out.println("---------------------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
 
