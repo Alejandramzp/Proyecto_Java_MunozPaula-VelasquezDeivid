@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import Dao.VisitorDao;
@@ -73,15 +70,16 @@ public class VisitorController {
     public void listVisitors() {
         List<VisitorModel> visitors = visitorDao.getAllVisitors();
         visitors.forEach(visitor -> {
-            System.out.println("ID: " + visitor.getVisitorID());
-            System.out.println("Nombre: " + visitor.getName());
-            System.out.println("Documento de Identificación: " + visitor.getIdentificationDocument());
-            System.out.println("Género: " + visitor.getGender());
-            System.out.println("Fecha de Nacimiento: " + visitor.getDateOfBirth());
-            System.out.println("Correo Electrónico: " + visitor.getEmail());
-            System.out.println("Número de Teléfono: " + visitor.getPhoneNumber());
-            System.out.println("Estado: " + visitor.getStatus());
-            System.out.println("-------------");
+            System.out.println("\n-----------------------------------------");
+            System.out.println(" ID: " + visitor.getVisitorID());
+            System.out.println(" Nombre: " + visitor.getName());
+            System.out.println(" Documento de Identificación: " + visitor.getIdentificationDocument());
+            System.out.println(" Género: " + visitor.getGender());
+            System.out.println(" Fecha de Nacimiento: " + visitor.getDateOfBirth());
+            System.out.println(" Correo Electrónico: " + visitor.getEmail());
+            System.out.println(" Número de Teléfono: " + visitor.getPhoneNumber());
+            System.out.println(" Estado: " + visitor.getStatus());
+            System.out.println("-----------------------------------------");
         });
     }
 }

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import Dao.EventDao;
@@ -58,13 +55,18 @@ public class EventController {
         }
 
         // Mostrar estado actual del evento
-        System.out.println("Estado actual del evento: " + event.getStatus());
+        System.out.println("\n--------------------------------------------");
+        System.out.println("  Estado actual del evento: " + event.getStatus());
+        System.out.println("---------------------------------------------");
 
         // Solicitar al usuario el nuevo estado
-        System.out.println("Elija el nuevo estado del evento:");
-        System.out.println("1. Activo");
-        System.out.println("2. Finalizado");
+        System.out.println("\n-----------------------------------------");
+        System.out.println("'     Elija el nuevo estado del evento:   '");
+        System.out.println("'   1. Activo                             '");
+        System.out.println("'   2. Finalizado                         '");
+        System.out.println("-----------------------------------------");
         System.out.print("Seleccione una opción: ");
+        
         int statusOption = scanner.nextInt();
         scanner.nextLine(); // Consumir nueva línea
 
@@ -99,7 +101,9 @@ public class EventController {
         // Actualizar el estado del evento
         event.setStatus(newStatus);
         if (eventDao.updateEventStatus(event)) {
+            System.out.println("\n-----------------------------------------------------------");
             System.out.println("Estado del evento actualizado exitosamente a " + newStatus + ".");
+            System.out.println("------------------------------------------------------------");
         } else {
             System.out.println("Error al actualizar el estado del evento. Por favor, intente de nuevo.");
         }

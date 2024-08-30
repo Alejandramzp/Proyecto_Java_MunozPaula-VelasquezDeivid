@@ -57,7 +57,7 @@ public class PropsView {
         // Validar el ID del evento
         while (true) {
             try {
-                System.out.println("Id del evento al que pertenece la utilería a crear: ");
+                System.out.println("ID del evento al que pertenece la utilería a crear: ");
                 eventId = scanner.nextInt();
                 scanner.nextLine();
                 
@@ -84,7 +84,7 @@ public class PropsView {
         System.out.println("                                           ");
         System.out.println("    1. En el sitio                         ");
         System.out.println("    2. En el almacen                       ");
-        System.out.println("      Seleccione una opción:                 ");
+        System.out.println("      Seleccione una opción:               ");
         System.out.println("-------------------------------------------");
         
         int optionS;
@@ -139,7 +139,7 @@ public class PropsView {
         // Validar el ID de la utilería
         while (true) {
             try {
-                System.out.println("Id de la utilería a mostrar: ");
+                System.out.println("ID de la utilería a mostrar: ");
                 propsId = scanner.nextInt();
                 scanner.nextLine();
                 

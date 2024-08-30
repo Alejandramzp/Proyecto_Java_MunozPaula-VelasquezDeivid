@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import Dao.ActivityRoleDao;
@@ -32,7 +29,9 @@ public class ActivityRoleController {
     }
 
     public void viewActivityRoles() {
-        System.out.println("Visualizando todas las actividades:");
+        System.out.println("\n-----------------------------------------");
+        System.out.println("  Visualizando todas las actividades:");
+        System.out.println("-----------------------------------------");
         activityRoleDao.viewActivityRoles();
     }
 }

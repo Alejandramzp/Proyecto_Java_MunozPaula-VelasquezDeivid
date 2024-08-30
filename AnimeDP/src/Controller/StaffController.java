@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import Dao.StaffDao;
@@ -46,14 +43,15 @@ public class StaffController {
             System.out.println("No hay registros de personal para mostrar.");
         } else {
             for (StaffModel staff : staffList) {
-                System.out.println("StaffID: " + staff.getStaffID());
-                System.out.println("EventID: " + staff.getEventID());
-                System.out.println("Nombre: " + staff.getName());
-                System.out.println("Identificación: " + staff.getIdentification());
-                System.out.println("Fecha de Nacimiento: " + staff.getDateOfBirth());
-                System.out.println("RoleID: " + staff.getRoleID());
-                System.out.println("Estado: " + staff.getStatus());
-                System.out.println("-----------------------------");
+                System.out.println("\n-----------------------------------------");
+                System.out.println(" StaffID: " + staff.getStaffID());
+                System.out.println(" EventID: " + staff.getEventID());
+                System.out.println(" Nombre: " + staff.getName());
+                System.out.println(" Identificación: " + staff.getIdentification());
+                System.out.println(" Fecha de Nacimiento: " + staff.getDateOfBirth());
+                System.out.println(" RoleID: " + staff.getRoleID());
+                System.out.println(" Estado: " + staff.getStatus());
+                System.out.println("--------------------------------------------");
             }
         }
     }

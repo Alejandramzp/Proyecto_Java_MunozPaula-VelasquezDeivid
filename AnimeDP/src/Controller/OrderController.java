@@ -14,6 +14,10 @@ public class OrderController {
     public boolean createOrder(OrderModel order) {
         return orderDao.addOrder(order);
     }
+    
+    public OrderModel getOrderById(int orderID) {
+        return orderDao.getOrderById(orderID);
+    }
 
     public boolean advanceOrderStatus(int orderID) {
         OrderModel order = orderDao.getOrderById(orderID);

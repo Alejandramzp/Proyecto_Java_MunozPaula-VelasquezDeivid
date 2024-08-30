@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controller;
 
 import Dao.PrizeDao;
@@ -19,19 +16,19 @@ public class PrizeController {
 
     // Método para agregar un nuevo premio
     public void addPrize() {
-        System.out.println("Ingrese el tipo del premio:");
+        System.out.print("Ingrese el tipo del premio: ");
         String type = scanner.nextLine();
         
-        System.out.println("Ingrese la descripción del premio:");
+        System.out.print("Ingrese la descripción del premio: ");
         String description = scanner.nextLine();
         
-        System.out.println("Ingrese el valor del premio:");
+        System.out.print("Ingrese el valor del premio: ");
         double value = scanner.nextDouble();
         
-        System.out.println("Ingrese el ID de la actividad:");
+        System.out.print("Ingrese el ID de la actividad: ");
         int activityID = scanner.nextInt();
         
-        System.out.println("Ingrese el ID del negocio:");
+        System.out.print("Ingrese el ID del negocio: ");
         int businessID = scanner.nextInt();
         
         scanner.nextLine(); // Consumir el salto de línea restante
@@ -46,10 +43,10 @@ public class PrizeController {
 
     // Método para entregar un premio
     public void deliverPrize() {
-        System.out.println("Ingrese el ID del premio:");
+        System.out.print("Ingrese el ID del premio:");
         int prizeID = scanner.nextInt();
         
-        System.out.println("Ingrese el ID del visitante:");
+        System.out.print("Ingrese el ID del visitante:");
         int visitorID = scanner.nextInt();
         
         scanner.nextLine(); // Consumir el salto de línea restante
@@ -64,7 +61,7 @@ public class PrizeController {
 
     // Método para eliminar un premio
     public void removePrize() {
-        System.out.println("Ingrese el ID del premio a eliminar:");
+        System.out.print("Ingrese el ID del premio a eliminar:");
         int prizeID = scanner.nextInt();
         
         scanner.nextLine(); // Consumir el salto de línea restante
@@ -79,7 +76,7 @@ public class PrizeController {
 
     // Método para listar premios por estado
     public void listPrizesByStatus() {
-        System.out.println("Ingrese el estado de los premios a listar:");
+        System.out.print("Ingrese el estado de los premios a listar:");
         String status = scanner.nextLine();
         
         prizeDao.listPrizesByStatus(status);
