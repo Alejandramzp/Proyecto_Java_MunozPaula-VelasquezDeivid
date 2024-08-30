@@ -21,7 +21,7 @@ public class CosplayParticipantDao {
     }
     
     private boolean isParticipantExist(int ParticipationID) {
-        // Consulta SQL para verificar la existencia de la actividad
+
         String sql = "SELECT ParticipationID FROM CosplayParticipant WHERE ParticipationID = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -36,7 +36,7 @@ public class CosplayParticipantDao {
     }
     
     private boolean isCosplayContestExist(int CosplayContestID) {
-        // Consulta SQL para verificar la existencia de la actividad
+
         String sql = "SELECT CosplayContestID FROM CosplayContest WHERE CosplayContestID = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -50,7 +50,6 @@ public class CosplayParticipantDao {
         }
     }
 
-    // Método para agregar un nuevo participante
     public boolean addCosplayParticipant(CosplayParticipantModel participant) {
         
         if (!isParticipantExist(participant.getParticipationID())) {
@@ -80,15 +79,43 @@ public class CosplayParticipantDao {
     }
 
     public ResultSet getTopParticipants(int cosplayContestID) {
-        String sql = "SELECT * FROM CosplayParticipant WHERE CosplayContestID = ? ORDER BY Score DESC LIMIT 3";
+    String getTopParticipantSQL = "SELECT cp.ParticipationID, ap.VisitorID, cp.Name, cp.Score " +
+                                  "FROM CosplayParticipant cp " +
+                                  "JOIN ActivityParticipation ap ON cp.ParticipationID = ap.ParticipationID " +
+                                  "WHERE cp.CosplayContestID = ? " +
+                                  "ORDER BY cp.Score DESC LIMIT 1";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, cosplayContestID);
-            return statement.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    String updateVisitorStatusSQL = "UPDATE Visitor SET Status = 'Ganador' WHERE VisitorID = ?";
+
+    try (PreparedStatement getTopParticipantStmt = connection.prepareStatement(getTopParticipantSQL);
+         PreparedStatement updateVisitorStatusStmt = connection.prepareStatement(updateVisitorStatusSQL)) {
+
+        getTopParticipantStmt.setInt(1, cosplayContestID);
+        ResultSet resultSet = getTopParticipantStmt.executeQuery();
+
+        if (resultSet.next()) {
+            int topVisitorID = resultSet.getInt("VisitorID");
+
+            updateVisitorStatusStmt.setInt(1, topVisitorID);
+            int rowsUpdated = updateVisitorStatusStmt.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                System.out.println("El estado del visitante ha sido actualizado a 'Ganador'.");
+            } else {
+                System.out.println("No se pudo actualizar el estado del visitante.");
+            }
+
+            return resultSet;
+        } else {
+            System.out.println("No se encontró ningún participante en el concurso de cosplay.");
             return null;
         }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null;
     }
+}
+
 }
 

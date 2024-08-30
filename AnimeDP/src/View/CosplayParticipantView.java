@@ -52,7 +52,7 @@ public class CosplayParticipantView {
 
         try (ResultSet rs = cosplayParticipantController.getTopParticipants(cosplayContestID)) {
             if (rs != null) {
-                System.out.println("Los 3 mejores participantes son:");
+                System.out.println("El primer lugar es:");
                 while (rs.next()) {
                     System.out.println("Nombre: " + rs.getString("Name") +
                             ", Puntaje: " + rs.getDouble("Score"));
@@ -69,7 +69,7 @@ public class CosplayParticipantView {
         while (true) {
             System.out.println("=== Menú de Participantes de Cosplay ===");
             System.out.println("1. Agregar participante de cosplay");
-            System.out.println("2. Mostrar los 3 mejores participantes");
+            System.out.println("2. Mostrar el 1 primer lugar");
             System.out.println("3. Salir");
             System.out.print("Seleccione una opción: ");
             int choice = scanner.nextInt();

@@ -86,9 +86,5 @@ public class CategoryDao {
         }
         return categories;
     }
-
-    public boolean isCategoryExist(int categoryID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
 
