@@ -19,7 +19,7 @@ public class CosplayParticipantDao {
     
     private boolean isParticipantExist(int ParticipationID) {
 
-        String sql = "SELECT ParticipationID FROM CosplayParticipant WHERE ParticipationID = ?";
+        String sql = "SELECT ParticipationID FROM ActivityParticipation WHERE ParticipationID = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, ParticipationID);
@@ -27,7 +27,7 @@ public class CosplayParticipantDao {
                 return resultSet.next(); 
             }
         } catch (SQLException e) {
-            System.out.println("Error al verificar la existencia de la actividad: " + e.getMessage());
+            System.out.println("Error al verificar la existencia del participante: " + e.getMessage());
             return false;
         }
     }

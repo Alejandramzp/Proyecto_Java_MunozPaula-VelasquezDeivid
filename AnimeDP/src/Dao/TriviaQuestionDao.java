@@ -5,6 +5,8 @@ import Connection.Conexion;
 import Model.TriviaQuestioModel;
 import java.sql.Connection;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TriviaQuestionDao {
     
@@ -52,4 +54,23 @@ public class TriviaQuestionDao {
             System.out.println("Error al listar las preguntas de trivia: " + e.getMessage());
         }
     }
+    
+    public List<TriviaQuestioModel> getQuestionsByDifficulty(String difficulty) throws SQLException{
+        List<TriviaQuestioModel> question = new ArrayList<>();
+        String sql = "SELECT * FROM TriviaQuestion WHERE Difficulty = ?";
+        
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, difficulty);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while(resultSet.next()){
+                int id = resultSet.getInt("QuestionID");
+                String questionText = resultSet.getString("Question");
+                String correctAnswer = resultSet.getString("CorrectAnswer");
+                String category = resultSet.getString("Category");
+                question.add(new TriviaQuestioModel(id, questionText, correctAnswer, category, difficulty));
+            }
+        }
+        return question;
+    } 
 }

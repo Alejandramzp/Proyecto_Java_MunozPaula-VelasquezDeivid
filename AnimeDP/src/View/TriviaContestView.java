@@ -52,7 +52,8 @@ public class TriviaContestView {
             System.out.println("'                                          '");
             System.out.println("'    1. Añadir concurso de trivia          '");
             System.out.println("'    2. Listar todos loc concursos trivia  '");
-            System.out.println("'    3. Salir                              '");
+            System.out.println("'    3. Iniciar concurso de trivia         '");
+            System.out.println("'    4. Salir                              '");
             System.out.println("--------------------------------------------");
             
             int choice = scanner.nextInt();
@@ -66,6 +67,8 @@ public class TriviaContestView {
                     listAllTriviaContest();
                     break;
                 case 3:
+                    
+                case 4:
                     return;
                 default:
                     System.out.println("Opción no válida.");
