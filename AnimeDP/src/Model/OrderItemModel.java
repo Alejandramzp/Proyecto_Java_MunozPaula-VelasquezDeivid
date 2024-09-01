@@ -7,6 +7,14 @@ public class OrderItemModel {
     private int quantity;
     private double individualValue;
 
+    public OrderItemModel(int orderItemID, int orderID, String itemName, int quantity, double individualValue) {
+        this.orderItemID = orderItemID;
+        this.orderID = orderID;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.individualValue = individualValue;
+    }
+
     public OrderItemModel(int orderID, String itemName, int quantity, double individualValue) {
         this.orderID = orderID;
         this.itemName = itemName;

@@ -142,4 +142,31 @@ public class OrderItemDao {
         }
         return orderItems;
     }
+    
+    public List<OrderItemModel> getItemsByOrderId(int orderId) {
+        List<OrderItemModel> orderItems = new ArrayList<>();
+        String sql = "SELECT * FROM OrderItem WHERE OrderID = ?";
+        Conexion conexion = new Conexion();
+        try (Connection connection = conexion.establecerConexion();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, orderId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    OrderItemModel item = new OrderItemModel(
+                        rs.getInt("OrderItemID"),
+                        rs.getInt("OrderID"),
+                        rs.getString("ItemName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("IndividualValue")
+                    );
+                    orderItems.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los ítems del pedido: " + e.getMessage());
+        }
+        return orderItems;
+    }
+        
+   
 }

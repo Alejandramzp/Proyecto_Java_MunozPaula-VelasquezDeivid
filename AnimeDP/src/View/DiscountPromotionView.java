@@ -2,9 +2,13 @@
 package View;
 
 import Controller.DiscountPromotionController;
+import Dao.OrderItemDao;
 import Model.DiscountPromotionModel;
+import Model.OrderItemModel;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DiscountPromotionView {
     private DiscountPromotionController discountPromotionController;
@@ -18,16 +22,17 @@ public class DiscountPromotionView {
     public void displayMenu() {
         int option;
         do {
-            System.out.println("------------------------------------------");
-            System.out.println("'           Gestión de Descuentos:       '");
-            System.out.println("'                                        '");
-            System.out.println("'    1. Añadir Descuento                 '");
-            System.out.println("'    2. Mostrar todos los Descuentos     '");
-            System.out.println("'    3. Mostrar Descuento por ID         '");
-            System.out.println("'    4. Actualizar Descuento por ID      '");
-            System.out.println("'    5. Eliminar Descuento por ID        '");
-            System.out.println("'    6. Salir                            '");
-            System.out.println("------------------------------------------");
+            System.out.println("----------------------------------------------");
+            System.out.println("'            Gestión de Descuentos:          '");
+            System.out.println("'                                            '");
+            System.out.println("'    1. Añadir Descuento                     '");
+            System.out.println("'    2. Mostrar todos los Descuentos         '");
+            System.out.println("'    3. Mostrar Descuento por ID             '");
+            System.out.println("'    4. Actualizar Descuento por ID          '");
+            System.out.println("'    5. Eliminar Descuento por ID            '");
+            System.out.println("'    6. Aplicar Descuento a Ítems del pedido '");
+            System.out.println("'    7. Salir                                '");
+            System.out.println("----------------------------------------------");
             System.out.print("Seleccione una opción: ");
             option = scanner.nextInt();
             scanner.nextLine(); // Consume la nueva línea
@@ -38,10 +43,11 @@ public class DiscountPromotionView {
                 case 3 -> showDiscountPromotionById();
                 case 4 -> updateDiscountPromotion();
                 case 5 -> deleteDiscountPromotion();
-                case 6 -> System.out.println("Saliendo...");
+                case 6 -> applyDiscountToOrder();
+                case 7 -> System.out.println("Saliendo...");
                 default -> System.out.println("Opción no válida, intente de nuevo.");
             }
-        } while (option != 6);
+        } while (option != 7);
     }
 
     private void addDiscountPromotion() {
@@ -160,6 +166,40 @@ public class DiscountPromotionView {
             System.out.println("Error al eliminar el descuento.");
         }
     }
+    
+    private void applyDiscountToOrder() {
+        System.out.println("\n-----------------------------------------");
+        System.out.println("   Aplicar Descuento a Ítems del Pedido    ");
+        System.out.println("-------------------------------------------");
+
+        System.out.print("ID del Pedido: ");
+        int orderId = scanner.nextInt();
+        scanner.nextLine(); // Consume la nueva línea
+        
+        OrderItemDao orderItemDao = new OrderItemDao();
+
+        List<OrderItemModel> orderItems = orderItemDao.getItemsByOrderId(orderId);
+        if (orderItems.isEmpty()) {
+            System.out.println("No hay ítems para este pedido.");
+            return;
+        }
+
+        System.out.println("Ítems del pedido:");
+        orderItems.forEach(item -> {
+            System.out.println("ID: " + item.getOrderItemID() + " - " + item.getItemName() + " - Cantidad: " + item.getQuantity() + " - Valor: " + item.getIndividualValue());
+        });
+
+        System.out.print("Ingrese los IDs de los ítems a los cuales aplicar el descuento (separados por comas): ");
+        String[] itemIdsStr = scanner.nextLine().split(",");
+        List<Integer> itemIds = Arrays.stream(itemIdsStr).map(Integer::parseInt).collect(Collectors.toList());
+
+        List<DiscountPromotionModel> discounts = discountPromotionController.getAllDiscountPromotions(); // Obtener todos los descuentos disponibles
+
+        double totalDiscountedValue = discountPromotionController.applyDiscountToOrderItems(orderId, itemIds, discounts);
+
+        System.out.println("El valor total con el descuento aplicado es: " + totalDiscountedValue);
+    }
+
   
     public static void main(String[] args) {
         DiscountPromotionView discountPromotion = new DiscountPromotionView();

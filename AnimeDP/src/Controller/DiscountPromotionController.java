@@ -2,8 +2,11 @@
 package Controller;
 
 import Dao.DiscountPromotionDao;
+import Dao.OrderItemDao;
 import Model.DiscountPromotionModel;
+import Model.OrderItemModel;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DiscountPromotionController {
     private DiscountPromotionDao discountPromotionDao;
@@ -33,19 +36,35 @@ public class DiscountPromotionController {
     }
 
     // Apply discount to an order
-    public double applyDiscount(double totalValue, List<DiscountPromotionModel> discounts) {
-        return discounts.stream().mapToDouble(discount -> {
-            switch (discount.getType().toLowerCase()) {
-                case "2x1":
-                    return totalValue * (1 - discount.getDiscountValue()); // Example: 50% off for 2x1
-                case "mejor precio por cantidad":
-                    return totalValue * (1 - discount.getDiscountValue()); // Discount based on quantity
-                case "combo":
-                    return totalValue * (1 - discount.getDiscountValue()); // Discount for combos
-                default:
-                    return 0;
+    public double applyDiscountToOrderItems(int orderId, List<Integer> itemIds, List<DiscountPromotionModel> discounts) {
+        OrderItemDao orderItemDao = new OrderItemDao();
+        List<OrderItemModel> items = orderItemDao.getItemsByOrderId(orderId);
+
+        // Filtrar los ítems seleccionados para aplicar el descuento
+        List<OrderItemModel> itemsToDiscount = items.stream()
+            .filter(item -> itemIds.contains(item.getOrderItemID()))
+            .collect(Collectors.toList());
+
+        // Aplicar los descuentos
+        double totalDiscountedValue = itemsToDiscount.stream().mapToDouble(item -> {
+            double itemTotal = item.getQuantity() * item.getIndividualValue();
+            for (DiscountPromotionModel discount : discounts) {
+                if (discount.getType().equalsIgnoreCase("2x1")) {
+                    // Lógica de descuento 2x1
+                    itemTotal *= (1 - discount.getDiscountValue());
+                } else if (discount.getType().equalsIgnoreCase("mejor precio por cantidad")) {
+                    // Lógica de descuento por cantidad
+                    itemTotal *= (1 - discount.getDiscountValue());
+                } else if (discount.getType().equalsIgnoreCase("combo")) {
+                    // Lógica de descuento por combo
+                    itemTotal *= (1 - discount.getDiscountValue());
+                }
             }
+            return itemTotal;
         }).sum();
+
+        return totalDiscountedValue;
     }
+
 }
 
