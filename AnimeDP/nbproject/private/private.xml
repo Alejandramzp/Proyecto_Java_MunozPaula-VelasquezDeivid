@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DEIVID/Desktop/Estudio/Proyecto_Java_MunozPaula-VelasquezDeivid/AnimeDP/src/Model/TriviaPartivipantModel.java</file>
-            <file>file:/C:/Users/DEIVID/Desktop/Estudio/Proyecto_Java_MunozPaula-VelasquezDeivid/AnimeDP/src/Dao/TriviaParticipantDao.java</file>
-            <file>file:/C:/Users/DEIVID/Desktop/Estudio/Proyecto_Java_MunozPaula-VelasquezDeivid/AnimeDP/src/Dao/CosplayParticipantDao.java</file>
+            <file>file:/C:/Users/DEIVID/Desktop/Estudio/Proyecto_Java_MunozPaula-VelasquezDeivid/AnimeDP/src/Model/ActivityModel.java</file>
+            <file>file:/C:/Users/DEIVID/Desktop/Estudio/Proyecto_Java_MunozPaula-VelasquezDeivid/AnimeDP/src/View/TriviaView.java</file>
         </group>
     </open-files>
 </project-private>
