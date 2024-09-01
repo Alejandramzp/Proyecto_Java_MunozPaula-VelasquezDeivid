@@ -10,17 +10,10 @@ import Model.CosplayContestModel;
 
 public class CosplayContestDao {
 
-    private Connection connection;
-
-    public CosplayContestDao() {
-        Conexion conexion = new Conexion();
-        this.connection = conexion.establecerConexion();
-    }
-    
     public boolean isCategoryExist(int categoryID) {
         String sql = "SELECT CategoryID FROM Category WHERE CategoryID = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = new Conexion().establecerConexion();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, categoryID);
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
@@ -31,7 +24,6 @@ public class CosplayContestDao {
         }
     }
 
-    // Método para agregar un concurso de cosplay
     public boolean addCosplayContest(CosplayContestModel contest) {
         if (!isCategoryExist(contest.getCategoryID())) {
             System.out.println("Error: El ID de la categoría no existe.");
@@ -39,8 +31,8 @@ public class CosplayContestDao {
         }
 
         String sql = "INSERT INTO CosplayContest (Name, CategoryID) VALUES (?, ?)";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = new Conexion().establecerConexion();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, contest.getName());
             statement.setInt(2, contest.getCategoryID());
 
@@ -54,8 +46,8 @@ public class CosplayContestDao {
 
     public void listAllCosplayContests() {
         String sql = "SELECT * FROM CosplayContest";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection connection = new Conexion().establecerConexion();
+             PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -70,5 +62,6 @@ public class CosplayContestDao {
         }
     }
 }
+
 
 

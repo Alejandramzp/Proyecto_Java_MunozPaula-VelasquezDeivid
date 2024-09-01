@@ -28,6 +28,12 @@ public class CategoryDao {
         } catch (SQLException e) {
             System.out.println("Error al agregar la categoría: " + e.getMessage());
             return false;
+        } finally {
+            try{
+                if(connection != null ) connection.close();
+            }catch(SQLException e){
+                System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            }
         }
     }
 
@@ -40,6 +46,12 @@ public class CategoryDao {
         } catch (SQLException e) {
             System.out.println("Error al eliminar la categoría: " + e.getMessage());
             return false;
+        } finally{
+            try{
+                if(connection != null) connection.close();
+            } catch (SQLException e){
+                System.out.println("Error al cerrar la conexion: " + e.getMessage());
+            }
         }
     }
 
