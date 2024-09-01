@@ -89,6 +89,6 @@ public class TriviaParticipantView {
         TriviaParticipantController controller = new TriviaParticipantController(dao);
         TriviaParticipantView view = new TriviaParticipantView(controller);
         
-        view.showTopParticipants();
+        view.showMenu();
     }
 }

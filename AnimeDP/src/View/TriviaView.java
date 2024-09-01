@@ -71,9 +71,11 @@ public class TriviaView {
             System.out.print("Ingrese el ID del concurso: ");
             int contestID = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
-            triviaController.iniciarConcurso(contestID);
+            triviaController.iniciarConcurso(contestID); // Este método debería manejar excepciones adecuadamente
         } catch (SQLException e) {
             System.out.println("Error al iniciar el concurso: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: no hay suficientes datos para iniciar el concurso. " + e.getMessage());
         }
     }
 
