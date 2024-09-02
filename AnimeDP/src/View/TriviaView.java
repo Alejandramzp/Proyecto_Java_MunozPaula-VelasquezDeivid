@@ -17,6 +17,8 @@ public class TriviaView {
     private TriviaParticipantController triviaParticipantController;
     private TriviaQuestionDao triviaQuestionDao;
     private TriviaController triviaController;
+    private TriviaQuestionView triviaQuestionView;
+    private TriviaParticipantView TriviaParticipantView;
     private Scanner scanner;
 
     public TriviaView(TriviaParticipantController triviaParticipantController) {
@@ -39,15 +41,14 @@ public class TriviaView {
                     iniciarConcurso();
                     break;
                 case 2:
-                    registrarPregunta();
+                    TriviaQuestionView question = new TriviaQuestionView();
+                    question.showMenu();
                     break;
                 case 3:
-                    registrarParticipante();
+                    TriviaParticipantView participant = new TriviaParticipantView(triviaParticipantController);
+                    participant.showMenu();
                     break;
                 case 4:
-                    mostrarResultados();
-                    break;
-                case 5:
                     System.out.println("Saliendo del sistema...");
                     break;
                 default:
@@ -57,12 +58,14 @@ public class TriviaView {
     }
 
     private void mostrarMenu() {
-        System.out.println("\n*** Menú del Concurso de Trivia ***");
-        System.out.println("1. Iniciar Concurso");
-        System.out.println("2. Registrar Pregunta");
-        System.out.println("3. Registrar Participante");
-        System.out.println("4. Mostrar Resultados");
-        System.out.println("5. Salir");
+        System.out.println("--------------------------------------------");
+        System.out.println("'      Gestión de Concurso Trivia:         '");
+        System.out.println("'                                          '");
+        System.out.println("'    1. Iniciar Concurso                   '");
+        System.out.println("'    2. Gestion de preguntas               '");
+        System.out.println("'    3. Gestion participantes              '");
+        System.out.println("'    4. Salir                              '");
+        System.out.println("--------------------------------------------");
         System.out.print("Seleccione una opción: ");
     }
 
@@ -79,52 +82,6 @@ public class TriviaView {
         }
     }
 
-    private void registrarPregunta() {
-        System.out.println("Escribe la pregunta: ");
-        String question = scanner.nextLine();
-
-        System.out.println("Escribe la respuesta de la pregunta: ");
-        String correctAnswer = scanner.nextLine();
-
-        System.out.println("Nombre de la categoría: ");
-        String category = scanner.nextLine();
-
-        System.out.println("Ingresa la dificultad de la pregunta (Fácil, Intermedio, Difícil): ");
-        String difficulty = scanner.nextLine();
-
-        TriviaQuestioModel questionModel = new TriviaQuestioModel(0, question, correctAnswer, category, difficulty);
-        boolean result = triviaQuestionDao.addTriviaQuestion(questionModel);
-
-        if (result) {
-            System.out.println("Pregunta ingresada exitosamente.");
-        } else {
-            System.out.println("Error al agregar la pregunta trivia.");
-        }
-    }
-
-    private void registrarParticipante() {
-        System.out.println("ID del participante: ");
-        int participantID = scanner.nextInt();
-        scanner.nextLine();
-
-        double score = 0;
-
-        System.out.println("ID del concurso de Trivia: ");
-        int triviaContestID = scanner.nextInt();
-        scanner.nextLine();
-
-        boolean result = triviaParticipantController.addTriviaParticipant(participantID, score, triviaContestID);
-
-        if (result) {
-            System.out.println("Participante de Trivia agregado exitosamente.");
-        } else {
-            System.out.println("Error al agregar al participante de trivia.");
-        }
-    }
-
-    private void mostrarResultados() {
-        triviaController.mostrarResultados();
-    }
 
     public static void main(String[] args) {
         TriviaParticipantDao triviaParticipantDao = new TriviaParticipantDao();

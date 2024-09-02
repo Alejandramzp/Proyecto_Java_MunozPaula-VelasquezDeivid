@@ -40,7 +40,7 @@ public class EventView {
         } while (option != 4);
     }
 
-    private void addEvent() {
+    public void addEvent() {
         System.out.println("\n-----------------------------------------");
         System.out.println("            Añadir nuevo evento:");
         System.out.println("-----------------------------------------");
